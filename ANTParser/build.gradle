@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.fredprojects'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Gson for serialization and deserialization of JSON
+    implementation 'com.google.code.gson:gson:2.11.0'
+    // jsoup for parsing HTML
+    implementation 'org.jsoup:jsoup:1.18.1'
+    // DI dagger
+    implementation 'com.google.dagger:dagger:2.52'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.52'
+    // test
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
