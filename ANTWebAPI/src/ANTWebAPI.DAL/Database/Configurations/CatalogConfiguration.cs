@@ -8,7 +8,7 @@ internal class CatalogConfiguration : IEntityTypeConfiguration<Catalog>
 {
     public void Configure(EntityTypeBuilder<Catalog> entity)
     {
-        entity.ToTable("Catalogs").HasKey(t => t.Id);
+        entity.ToTable("ANTCatalogs").HasKey(t => t.Id);
         entity.HasMany(i => i.Articles).WithOne(i => i.Catalog).HasForeignKey(i => i.CatalogId);
     }
 }

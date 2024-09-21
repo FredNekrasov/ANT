@@ -8,7 +8,7 @@ internal class ContentConfiguration : IEntityTypeConfiguration<Content>
 {
     public void Configure(EntityTypeBuilder<Content> entity)
     {
-        entity.ToTable("Contents").HasKey(t => t.Id);
+        entity.ToTable("ANTContents").HasKey(t => t.Id);
         entity.Property(t => t.ArticleId).HasColumnName("article_id");
     }
 }
