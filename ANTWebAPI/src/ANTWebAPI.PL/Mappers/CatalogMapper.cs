@@ -5,7 +5,6 @@ namespace ANTWebAPI.PL.mappers;
 
 internal static class CatalogMapper
 {
-
     internal static CatalogDTO ToDto(this Catalog catalog) => new()
     {
         Id = catalog.Id,
