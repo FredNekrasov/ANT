@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.sqldelight)
 }
 
 android {
@@ -50,15 +49,14 @@ composeCompiler {
     metricsDestination = layout.buildDirectory.dir("composeMetrics")
 }
 dependencies {
+    implementation(project(":domain"))
+    implementation(project(":data"))
+    implementation(project(":presentation"))
+
     implementation(libs.bundles.koin)
     implementation(libs.bundles.navigation)
-    // data
-    implementation(libs.bundles.network)
-    implementation(libs.bundles.database)
-    // presentation
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.app)
-    implementation(libs.bundles.presentation)
     // test
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
