@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "ANT"
 include(":app")
 include(":domain")
+include(":data")
