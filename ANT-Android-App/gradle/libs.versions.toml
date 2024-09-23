@@ -70,8 +70,8 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 koin = ["koin-androidx-compose", "koin-android", "koin-core"]
 navigation = ["decompose", "decompose-extensions"]
 # presentation
-app = ["androidx-core-ktx", "androidx-activity-compose"]
-presentation = ["androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-ktx", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "coil-compose"]
+app = ["androidx-core-ktx", "androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3"]
+presentation = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-ktx", "androidx-ui", "androidx-ui-graphics", "androidx-material3", "coil-compose"]
 # data
 network = ["ktor-client-core", "ktor-client-okHttp", "ktor-client-logging", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"]
 database = ["sqldelight-android-driver", "sqldelight-runtime"]
