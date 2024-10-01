@@ -30,7 +30,13 @@ android {
         jvmTarget = "17"
     }
 }
-
+sqldelight {
+    databases {
+        create("ANTDatabase") {
+            packageName = "com.fredprojects.ant.data.local"
+        }
+    }
+}
 dependencies {
     implementation(project(":domain"))
     implementation(libs.koin.core)

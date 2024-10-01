@@ -15,5 +15,5 @@ data class Article(
     val date: String,
     val articleType: String,
     val content: List<String>,
-    val id: Int = 0
+    val id: Long = 0
 )
