@@ -29,7 +29,11 @@ android {
         jvmTarget = "17"
     }
 }
-
+composeCompiler {
+    stabilityConfigurationFile = layout.buildDirectory.file("composeStabilityConfig.json")
+    reportsDestination = layout.buildDirectory.dir("composeCompiler")
+    metricsDestination = layout.buildDirectory.dir("composeMetrics")
+}
 dependencies {
     implementation(project(":domain"))
     implementation(platform(libs.androidx.compose.bom))
