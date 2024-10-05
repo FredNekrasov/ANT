@@ -17,7 +17,8 @@ activityCompose = "1.9.2"
 composeBom = "2024.09.03"
 coil = "2.7.0"
 ## navigation
-decompose = "3.2.0-beta01"
+#decompose = "3.2.0-beta01"
+navigationCompose = "2.8.2"
 ## test
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -43,8 +44,9 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 # navigation
-decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
-decompose-extensions = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+#decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
+#decompose-extensions = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 # network & serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -68,7 +70,8 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 
 [bundles]
 koin = ["koin-androidx-compose", "koin-android", "koin-core"]
-navigation = ["decompose", "decompose-extensions"]
+#navigation = ["decompose", "decompose-extensions"]
+navigation = ["androidx-navigation-compose"]
 # presentation
 app = ["androidx-core-ktx", "androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3"]
 presentation = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-ktx", "androidx-ui", "androidx-ui-graphics", "androidx-material3", "coil-compose"]

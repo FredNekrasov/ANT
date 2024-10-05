@@ -45,6 +45,7 @@ android {
     }
 }
 composeCompiler {
+    stabilityConfigurationFile = layout.buildDirectory.file("composeStabilityConfig.json")
     reportsDestination = layout.buildDirectory.dir("composeCompiler")
     metricsDestination = layout.buildDirectory.dir("composeMetrics")
 }
