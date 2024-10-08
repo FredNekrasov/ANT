@@ -12,7 +12,8 @@ public class CatalogRepository(ANTDbContext context) : IRepository<Catalog>
     public async Task<bool> DeleteAsync(long id)
     {
         if (await _context.Articles.AnyAsync(e => e.CatalogId == id)) return false;
-        var model = await _context.Catalogs.FirstAsync(e => e.Id == id);
+        var model = await _context.Catalogs.FirstOrDefaultAsync(e => e.Id == id);
+        if (model == null) return false;
         _context.Catalogs.Remove(model);
         await _context.SaveChangesAsync();
         return true;
