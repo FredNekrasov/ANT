@@ -3,9 +3,9 @@ using ANTWebAPI.PL.DTOs;
 
 namespace ANTWebAPI.PL.mappers;
 
-internal static class ArticleMapper
+public static class ArticleMapper
 {
-    internal static ArticleDTO ToDto(this Article article) => new()
+    public static ArticleDTO ToDto(this Article article) => new()
     {
         Id = article.Id,
         Title = article.Title,
@@ -14,12 +14,12 @@ internal static class ArticleMapper
         DateOrBanner = article.DateOrBanner
     };
 
-    internal static Article ToModel(this ArticleDTO article) => new()
+    public static Article ToModel(this ArticleDTO articleDto) => new()
     {
-        Id = article.Id,
-        Title = article.Title,
-        CatalogId = article.Catalog.Id,
-        Description = article.Description,
-        DateOrBanner = article.DateOrBanner
+        Id = articleDto.Id,
+        Title = articleDto.Title,
+        CatalogId = articleDto.Catalog.Id,
+        Description = articleDto.Description,
+        DateOrBanner = articleDto.DateOrBanner
     };
 }

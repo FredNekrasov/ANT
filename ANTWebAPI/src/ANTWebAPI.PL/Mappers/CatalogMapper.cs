@@ -3,17 +3,17 @@ using ANTWebAPI.PL.DTOs;
 
 namespace ANTWebAPI.PL.mappers;
 
-internal static class CatalogMapper
+public static class CatalogMapper
 {
-    internal static CatalogDTO ToDto(this Catalog catalog) => new()
+    public static CatalogDTO ToDto(this Catalog catalog) => new()
     {
         Id = catalog.Id,
         Name = catalog.Name
     };
 
-    internal static Catalog ToModel(this CatalogDTO catalog) => new()
+    public static Catalog ToModel(this CatalogDTO catalogDto) => new()
     {
-        Id = catalog.Id,
-        Name = catalog.Name
+        Id = catalogDto.Id,
+        Name = catalogDto.Name
     };
 }
