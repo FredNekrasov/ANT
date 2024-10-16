@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ANTWebAPI.DAL.Repositories;
 
-internal class ContentRepository(ANTDbContext context) : IRepository<Content>
+public class ContentRepository(ANTDbContext context) : IRepository<Content>
 {
     private readonly ANTDbContext _context = context;
 

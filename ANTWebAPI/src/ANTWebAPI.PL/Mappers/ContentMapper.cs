@@ -3,19 +3,19 @@ using ANTWebAPI.PL.DTOs;
 
 namespace ANTWebAPI.PL.mappers;
 
-internal static class ContentMapper
+public static class ContentMapper
 {
-    internal static ContentDTO ToDto(this Content content) => new()
+    public static ContentDTO ToDto(this Content content) => new()
     {
         Id = content.Id,
         ArticleId = content.ArticleId,
         Data = content.Data
     };
 
-    internal static Content ToModel(this ContentDTO content) => new()
+    public static Content ToModel(this ContentDTO contentDto) => new()
     {
-        Id = content.Id,
-        ArticleId = content.ArticleId,
-        Data = content.Data
+        Id = contentDto.Id,
+        ArticleId = contentDto.ArticleId,
+        Data = contentDto.Data
     };
 }

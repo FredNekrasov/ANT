@@ -5,14 +5,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ANTWebAPI.DAL.Repositories;
 
-internal class ArticleRepository(ANTDbContext context) : IRepository<Article>
+public class ArticleRepository(ANTDbContext context) : IRepository<Article>
 {
     private readonly ANTDbContext _context = context;
 
     public async Task<bool> DeleteAsync(long id)
     {
         if (await _context.Contents.AnyAsync(e => e.ArticleId == id)) return false;
-        var model = await _context.Articles.FirstAsync(e => e.Id == id);
+        var model = await _context.Articles.FirstOrDefaultAsync(e => e.Id == id);
+        if (model == null) return false;
         _context.Articles.Remove(model);
         await _context.SaveChangesAsync();
         return true;
