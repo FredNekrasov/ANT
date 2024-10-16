@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class VolunteerismParser {
+public final class VolunteerismParser {
     @Inject public VolunteerismParser() {}
     private Document parseData() {
         try {

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ContactParser {
+public final class ContactParser {
     @Inject public ContactParser() {}
     private Document parseData() {
         try {
@@ -32,7 +32,8 @@ public class ContactParser {
     public List<String> parseContacts() {
         return parseData()
                 .getElementsByClass("t451__rightside t451__side t451__side_socials")
-                .stream().map(it -> it.getElementsByTag("a"))
+                .stream()
+                .map(it -> it.getElementsByTag("a"))
                 .flatMap(Collection::stream)
                 .map(it -> it.attr("href").trim()).toList();
     }

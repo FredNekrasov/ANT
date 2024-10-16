@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class SacramentParser {
+public final class SacramentParser {
     @Inject public SacramentParser() {}
     private String[] parseData() {
         try {

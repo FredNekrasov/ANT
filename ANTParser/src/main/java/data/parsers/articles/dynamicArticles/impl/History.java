@@ -3,7 +3,7 @@ package data.parsers.articles.dynamicArticles.impl;
 import data.parsers.articles.dynamicArticles.DATParser;
 import jakarta.inject.Inject;
 
-public class History extends DATParser {
+public final class History extends DATParser {
     @Inject public History() {}
     public String parseDescription(String url) {
         return super.parseDescription(url, "t-redactor__text");

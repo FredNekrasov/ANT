@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MainPageParser {
+public final class MainPageParser {
     @Inject public MainPageParser() {}
     private Elements parseData() {
         try {
