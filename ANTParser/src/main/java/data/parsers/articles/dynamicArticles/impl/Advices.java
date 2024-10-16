@@ -3,7 +3,7 @@ package data.parsers.articles.dynamicArticles.impl;
 import data.parsers.articles.dynamicArticles.DATParser;
 import jakarta.inject.Inject;
 
-public class Advices extends DATParser {
+public final class Advices extends DATParser {
     @Inject public Advices() {}
     @Override
     public String parseContent(String url) {

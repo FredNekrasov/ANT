@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class PriesthoodParser {
+public final class PriesthoodParser {
     @Inject public PriesthoodParser() {}
     private Elements parseData() {
         try {
@@ -32,10 +32,11 @@ public class PriesthoodParser {
                 .collect(Collectors.joining(""));
     }
     public String parseDescription() {
-        return Arrays.stream(parseData().stream()
-                        .map(it -> it.wholeOwnText().trim())
-                        .collect(Collectors.joining("\n"))
-                        .split("\n"))
+        var extractedData = parseData().stream()
+                .map(it -> it.wholeOwnText().trim())
+                .collect(Collectors.joining("\n"))
+                .split("\n");
+        return Arrays.stream(extractedData)
                 .map(String::trim)
                 .filter(it -> !it.isBlank())
                 .collect(Collectors.joining("\n"));

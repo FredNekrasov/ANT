@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-public class ScheduleParser {
+public final class ScheduleParser {
     @Inject public ScheduleParser() {}
     private Elements parseElements(String clazzName) {
         try {
