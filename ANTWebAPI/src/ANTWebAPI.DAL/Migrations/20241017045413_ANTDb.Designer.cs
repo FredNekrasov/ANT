@@ -2,15 +2,18 @@
 using ANTWebAPI.DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ANTWebAPI.DAL.Migrations
 {
     [DbContext(typeof(ANTDbContext))]
-    partial class ANTDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241017045413_ANTDb")]
+    partial class ANTDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
