@@ -1,24 +1,24 @@
 [versions]
 # plugins
-agp = "8.7.0"
+agp = "8.7.1"
 kotlin = "2.0.20"
 # libraries
 koin = "4.0.0"
 ## data
 sqlDelight = "2.0.2"
-ktor = "3.0.0-rc-2"
+ktor = "3.0.0"
 kotlinxSerialization = "1.7.3"
 ## domain
 coroutines = "1.9.0"
 ## presentation
 coreKtx = "1.13.1"
 lifecycleKtx = "2.8.6"
-activityCompose = "1.9.2"
-composeBom = "2024.09.03"
+activityCompose = "1.9.3"
+composeBom = "2024.10.00"
 coil = "2.7.0"
 ## navigation
-#decompose = "3.2.0-beta01"
-navigationCompose = "2.8.2"
+#decompose = "3.2.0-beta02"
+navigationCompose = "2.8.3"
 ## test
 junit = "4.13.2"
 junitVersion = "1.2.1"
