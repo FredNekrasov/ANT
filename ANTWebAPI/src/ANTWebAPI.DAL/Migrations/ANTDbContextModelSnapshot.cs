@@ -2,8 +2,6 @@
 using ANTWebAPI.DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
@@ -23,40 +21,73 @@ namespace ANTWebAPI.DAL.Migrations
 
             modelBuilder.Entity("ANTWebAPI.BLL.Models.Article", b =>
                 {
-                    b.Property<long>("Id").ValueGeneratedOnAdd().HasColumnType("bigint");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("CatalogId").HasColumnType("bigint").HasColumnName("catalog_id");
+                    b.Property<long>("CatalogId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("catalog_id");
+
                     b.Property<string>("DateOrBanner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("date_or_banner");
-                    b.Property<string>("Description").IsRequired().HasColumnType("nvarchar(max)");
-                    b.Property<string>("Title").IsRequired().HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
                     b.HasIndex("CatalogId");
+
                     b.ToTable("ANTArticles", (string)null);
                 });
 
             modelBuilder.Entity("ANTWebAPI.BLL.Models.Catalog", b =>
                 {
-                    b.Property<long>("Id").ValueGeneratedOnAdd().HasColumnType("bigint");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<string>("Name").IsRequired().HasColumnType("nvarchar(max)");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
                     b.ToTable("ANTCatalogs", (string)null);
                 });
 
             modelBuilder.Entity("ANTWebAPI.BLL.Models.Content", b =>
                 {
-                    b.Property<long>("Id").ValueGeneratedOnAdd().HasColumnType("bigint");
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("ArticleId").HasColumnType("bigint").HasColumnName("article_id");
-                    b.Property<string>("Data").IsRequired().HasColumnType("nvarchar(max)");
+                    b.Property<long>("ArticleId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("article_id");
+
+                    b.Property<string>("Data")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
                     b.HasIndex("ArticleId");
+
                     b.ToTable("ANTContents", (string)null);
                 });
 
@@ -83,6 +114,7 @@ namespace ANTWebAPI.DAL.Migrations
                 });
 
             modelBuilder.Entity("ANTWebAPI.BLL.Models.Article", b => { b.Navigation("Contents"); });
+
             modelBuilder.Entity("ANTWebAPI.BLL.Models.Catalog", b => { b.Navigation("Articles"); });
 #pragma warning restore 612, 618
         }

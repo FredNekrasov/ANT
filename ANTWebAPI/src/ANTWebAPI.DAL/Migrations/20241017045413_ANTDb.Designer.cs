@@ -2,17 +2,15 @@
 using ANTWebAPI.DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace ANTWebAPI.DAL.Migrations
 {
     [DbContext(typeof(ANTDbContext))]
-    [Migration("20240921070458_ANTDbMigration")]
-    partial class ANTDbMigration
+    [Migration("20241017045413_ANTDb")]
+    partial class ANTDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,15 +116,9 @@ namespace ANTWebAPI.DAL.Migrations
                     b.Navigation("Article");
                 });
 
-            modelBuilder.Entity("ANTWebAPI.BLL.Models.Article", b =>
-                {
-                    b.Navigation("Contents");
-                });
+            modelBuilder.Entity("ANTWebAPI.BLL.Models.Article", b => { b.Navigation("Contents"); });
 
-            modelBuilder.Entity("ANTWebAPI.BLL.Models.Catalog", b =>
-                {
-                    b.Navigation("Articles");
-                });
+            modelBuilder.Entity("ANTWebAPI.BLL.Models.Catalog", b => { b.Navigation("Articles"); });
 #pragma warning restore 612, 618
         }
     }

@@ -5,7 +5,7 @@
 namespace ANTWebAPI.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class ANTDbMigration : Migration
+    public partial class ANTDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,7 +14,8 @@ namespace ANTWebAPI.DAL.Migrations
                 name: "ANTCatalogs",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -26,7 +27,8 @@ namespace ANTWebAPI.DAL.Migrations
                 name: "ANTArticles",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     catalog_id = table.Column<long>(type: "bigint", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -47,7 +49,8 @@ namespace ANTWebAPI.DAL.Migrations
                 name: "ANTContents",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false).Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     article_id = table.Column<long>(type: "bigint", nullable: false),
                     Data = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -63,6 +66,7 @@ namespace ANTWebAPI.DAL.Migrations
                 });
 
             migrationBuilder.CreateIndex(name: "IX_ANTArticles_catalog_id", table: "ANTArticles", column: "catalog_id");
+
             migrationBuilder.CreateIndex(name: "IX_ANTContents_article_id", table: "ANTContents", column: "article_id");
         }
 
