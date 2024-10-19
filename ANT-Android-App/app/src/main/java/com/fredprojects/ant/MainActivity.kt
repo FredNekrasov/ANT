@@ -11,6 +11,7 @@ import com.fredprojects.ant.presentation.screens.viewModels.ArticleVM
 import com.fredprojects.ant.ui.theme.ANTTheme
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.qualifier.qualifier
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ANTTheme {
-                val articleVM = koinViewModel<ArticleVM>()
+                val articleVM = koinViewModel<ArticleVM>(qualifier<ArticleVM>())
                 MainEntryPoint(articleVM)
                 LaunchedEffect(Unit) {
                     articleVM.articlesSF.collectLatest {

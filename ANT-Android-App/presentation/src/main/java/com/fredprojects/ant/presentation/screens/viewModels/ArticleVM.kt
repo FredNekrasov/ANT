@@ -11,14 +11,14 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class ArticleVM(
-    private val getArticlesRepo: IArticleRepository,
+    private val repository: IArticleRepository,
     private val context: Application
 ) : ViewModel() {
     private val articlesMSF = MutableStateFlow(ArticleState())
     val articlesSF = articlesMSF.asStateFlow()
     init {
         viewModelScope.launch {
-            getArticlesRepo.getList().flowOn(Dispatchers.IO).collectLatest {
+            repository.getList().flowOn(Dispatchers.IO).collectLatest {
                 articlesMSF.emit(articlesSF.value.copy(list = it.list, status = it.status))
             }
         }
