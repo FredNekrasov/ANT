@@ -19,8 +19,8 @@ import com.fredprojects.ant.presentation.core.FredIconButton
  *  @param article is the article to be shown in the details
  */
 @Composable
-internal fun ListItemDialog(
-    isShowDialog: (Boolean) -> Unit,
+internal inline fun ListItemDialog(
+    crossinline isShowDialog: (Boolean) -> Unit,
     article: Article
 ) {
     LazyColumn(Modifier.fillMaxSize(0.8f).background(MaterialTheme.colorScheme.background)) {

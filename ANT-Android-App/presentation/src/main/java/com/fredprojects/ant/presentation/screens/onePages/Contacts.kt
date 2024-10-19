@@ -47,7 +47,7 @@ fun Contacts(
  * @param openSomeApp action for opening app like telegram, vk, gmail and phone
  */
 @Composable
-private fun ContactsCard(contentList: List<String>, openSomeApp: (String) -> Unit) {
+private inline fun ContactsCard(contentList: List<String>, crossinline openSomeApp: (String) -> Unit) {
     Row(Modifier.fillMaxWidth().wrapContentHeight(), Arrangement.SpaceEvenly, Alignment.CenterVertically) {
         FredIconButton({ openSomeApp(contentList.getNotNull(2)) }, Icons.Default.Phone, ANTStrings.PHONE)
         FredTButton({ openSomeApp(contentList.getNotNull(0)) }, ANTStrings.TELEGRAM)
