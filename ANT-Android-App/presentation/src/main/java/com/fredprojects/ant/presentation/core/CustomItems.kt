@@ -19,5 +19,4 @@ fun ConnectionStatus.getMessage() = when(this) {
 fun ConnectionStatus.isError() = (this != SUCCESS) && (this != LOADING)
 fun List<String>.getNotNull(index: Int): String = this.getOrNull(index).toString()
 // creating aliases for convenience and simplification
-typealias SAction = (String) -> Unit
 typealias Action = () -> Unit
