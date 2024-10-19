@@ -46,8 +46,6 @@ class ArticleRepository(
     }.catch { ex ->
         val articleList = dao.getAllArticles().map { it.toModel() }
         when(ex) {
-            is ServerResponseException -> emit(Error(articleList, CONNECTION_ERROR))
-            is RedirectResponseException -> emit(Error(articleList, CONNECTION_ERROR))
             is HttpRequestTimeoutException -> emit(Error(articleList, CONNECTION_ERROR))
             is ClientRequestException -> emit(Error(articleList, NO_INTERNET))
             is JsonConvertException -> emit(Error(articleList, SERIALIZATION_ERROR))
