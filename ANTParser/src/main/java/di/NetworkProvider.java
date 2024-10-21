@@ -5,13 +5,11 @@ import com.google.gson.GsonBuilder;
 import dagger.Module;
 import dagger.Provides;
 
-import javax.inject.Singleton;
 import java.net.http.HttpClient;
 import java.time.Duration;
 
 @Module
 public class NetworkProvider {
-    @Singleton
     @Provides
     public HttpClient provideHttpClient() {
         return HttpClient.newBuilder()
@@ -20,7 +18,6 @@ public class NetworkProvider {
                 .followRedirects(HttpClient.Redirect.NEVER)
                 .build();
     }
-    @Singleton
     @Provides
     public Gson provideGson() {
         return new GsonBuilder().setPrettyPrinting().create();
