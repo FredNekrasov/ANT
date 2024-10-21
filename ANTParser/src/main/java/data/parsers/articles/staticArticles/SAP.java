@@ -1,7 +1,6 @@
 package data.parsers.articles.staticArticles;
 
 import data.parsers.articles.staticArticles.impl.*;
-import jakarta.inject.Inject;
 
 public record SAP(
     MainPageParser mainPageParser,
@@ -10,6 +9,4 @@ public record SAP(
     SacramentParser sacramentParser,
     ContactParser contactParser,
     VolunteerismParser volunteerismParser
-) {// static article parsers
-    @Inject public SAP {}
-}
+) {}// static article parsers
