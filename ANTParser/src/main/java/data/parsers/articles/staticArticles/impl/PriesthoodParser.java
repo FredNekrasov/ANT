@@ -1,5 +1,7 @@
 package data.parsers.articles.staticArticles.impl;
 
+import domain.models.Article;
+import domain.models.Catalog;
 import jakarta.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -19,7 +21,7 @@ public final class PriesthoodParser {
             throw new RuntimeException(e);
         }
     }
-    public String parseTitle() {
+    private String parseTitle() {
         return parseData().stream()
                 .map(it -> it.children().tagName("strong").html().trim())
                 .filter(it -> !it.isBlank())
@@ -31,7 +33,7 @@ public final class PriesthoodParser {
                 .filter(it -> !it.isBlank())
                 .collect(Collectors.joining(""));
     }
-    public String parseDescription() {
+    private String parseDescription() {
         var extractedData = parseData().stream()
                 .map(it -> it.wholeOwnText().trim())
                 .collect(Collectors.joining("\n"))
@@ -40,5 +42,8 @@ public final class PriesthoodParser {
                 .map(String::trim)
                 .filter(it -> !it.isBlank())
                 .collect(Collectors.joining("\n"));
+    }
+    public Article getArticle(Catalog catalog) {
+        return new Article(catalog, parseTitle(), parseDescription(), "", 0L);
     }
 }

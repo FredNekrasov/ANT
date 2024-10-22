@@ -1,5 +1,7 @@
 package data.parsers.articles.dynamicArticles;
 
+import domain.models.Article;
+import domain.models.Catalog;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -14,7 +16,7 @@ public abstract class DATParser {// Dynamic articles type (DAT)
             throw new RuntimeException(e);
         }
     }
-    public String parseTitle(String url) {
+    protected String parseTitle(String url) {
         return parseData(url).getElementsByClass("t-feed__post-popup__title-wrapper").text();
     }
     public String parseContent(String url) {
@@ -24,10 +26,11 @@ public abstract class DATParser {// Dynamic articles type (DAT)
                 .map(it -> it.children().attr("data-original").trim())
                 .collect(Collectors.joining("\n"));
     }
-    public String parseDate(String url) {
+    protected String parseDate(String url) {
         return parseData(url).getElementsByClass("t-feed__post-popup__date-wrapper").text();
     }
     protected String parseDescription(String url, String clazzName) {
         return parseData(url).getElementsByClass(clazzName).text();
     }
+    public abstract Article getArticle(String url, Catalog catalog);
 }

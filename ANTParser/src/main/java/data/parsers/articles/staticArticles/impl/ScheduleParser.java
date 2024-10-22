@@ -1,5 +1,7 @@
 package data.parsers.articles.staticArticles.impl;
 
+import domain.models.Article;
+import domain.models.Catalog;
 import jakarta.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -19,18 +21,21 @@ public final class ScheduleParser {
             throw new RuntimeException(e);
         }
     }
-    public String parseIf1Content() {
+    private String parseIf1Content() {
         return parseElements("t-align_center")
                 .stream()
                 .map(it -> it.children().attr("data-original"))
                 .collect(Collectors.joining("\n"));
     }
-    public String parseIf2Content() {
+    private String parseIf2Content() {
         return parseElements("t156__wrapper")
                 .stream()
                 .map(it -> it.getElementsByClass("t156__item"))
                 .flatMap(Collection::stream)
                 .map(it -> it.children().attr("data-original").trim())
                 .collect(Collectors.joining("\n"));
+    }
+    public Article getArticle(Catalog catalog) {
+        return new Article(catalog, parseIf1Content(), parseIf2Content(), "", 0L);
     }
 }
