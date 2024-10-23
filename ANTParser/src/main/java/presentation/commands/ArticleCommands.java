@@ -8,13 +8,11 @@ import java.io.PrintStream;
 
 public class ArticleCommands {
     private final ArticleUseCases articleUseCases;
-    private final PrintStream printer;
     @Inject
-    public ArticleCommands(ArticleUseCases articleUseCases, PrintStream printer) {
+    public ArticleCommands(ArticleUseCases articleUseCases) {
         this.articleUseCases = articleUseCases;
-        this.printer = printer;
     }
-    public void printRemoteArticles() {
+    public void printRemoteArticles(PrintStream printer) {
         articleUseCases.getArticles().forEach(printer::println);
     }
     public void upsertArticle(Article article) {
@@ -22,10 +20,10 @@ public class ArticleCommands {
     }
     public void deleteArticle(int id) {
         var status = articleUseCases.deleteArticle(id);
-        printer.println(status.name());
+        System.out.println(status.name());
     }
-    public void getArticleById(int id) {
+    public void getArticleById(int id, PrintStream printer) {
         var article = articleUseCases.getArticleById(id);
-        printer.println(article.id() + " " + article.title());
+        printer.println(article.catalog().id() + " " + article.catalog().name() + "\t | " + article.id() + " " + article.title() + " " + article.description() + " " + article.dateOrBanner());
     }
 }
