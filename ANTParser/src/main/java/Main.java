@@ -1,5 +1,5 @@
 import di.DaggerAppComponent;
-import domain.models.Catalog;
+import domain.models.Content;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
@@ -10,10 +10,10 @@ public class Main {
         var menu = DaggerAppComponent.create().getMenu();
         Scanner scanner = new Scanner(System.in);
         PrintStream printer = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-        var article = menu.parsers().articleParsers().staticArticleParsers().mainPageParser().getArticle(new Catalog("Главная страница", 1L));
-        printer.println(article);
+        var content = menu.parsers().articleParsers().staticArticleParsers().mainPageParser().parseContent();
+        printer.println(content);
         var result = scanner.nextInt();
-        if (result == 0) menu.articleCommands().upsertArticle(article);
+        if (result == 0) menu.contentCommands().upsertContent(new Content(1L, content, 0L));
         System.out.println("Hello, World!");
     }
 }
