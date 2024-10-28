@@ -1,5 +1,7 @@
 package data.parsers.articles.staticArticles.impl;
 
+import domain.models.Article;
+import domain.models.Catalog;
 import jakarta.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,7 +30,7 @@ public final class VolunteerismParser {
                 .collect(Collectors.joining("\n"))
                 .split("<[\\w>\\s=\"-:;]*");
     }
-    public String parseTitle() {
+    private String parseTitle() {
         return Arrays.stream(parseText()).filter(it -> !it.isEmpty()).toList().getFirst().trim();
     }
     public List<String> parseContent() {
@@ -39,11 +41,14 @@ public final class VolunteerismParser {
                 .map(it -> it.children().attr("data-original"))
                 .toList();
     }
-    public String parseDescription() {
+    private String parseDescription() {
         return Arrays.stream(parseText())
                 .map(String::trim)
                 .skip(1)
                 .filter(it -> !it.isBlank())
                 .collect(Collectors.joining("\n"));
+    }
+    public Article getArticle(Catalog catalog) {
+        return new Article(catalog, parseTitle(), parseDescription(), "", 0L);
     }
 }

@@ -6,5 +6,4 @@ public record Article(
     String description,
     String dateOrBanner,
     Long id
-) {
-}
+) {}

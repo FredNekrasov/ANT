@@ -1,5 +1,7 @@
 package data.parsers.articles.staticArticles.impl;
 
+import domain.models.Article;
+import domain.models.Catalog;
 import jakarta.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,7 +19,7 @@ public final class ContactParser {
             throw new RuntimeException(e);
         }
     }
-    public String parseTitle() {
+    private String parseTitle() {
         var listOfPageData = parseData()
                 .getElementsByClass("t555__contentwrapper")
                 .html()
@@ -36,5 +38,8 @@ public final class ContactParser {
                 .map(it -> it.getElementsByTag("a"))
                 .flatMap(Collection::stream)
                 .map(it -> it.attr("href").trim()).toList();
+    }
+    public Article getArticle(Catalog catalog) {
+        return new Article(catalog, parseTitle(), "", "", 0L);
     }
 }

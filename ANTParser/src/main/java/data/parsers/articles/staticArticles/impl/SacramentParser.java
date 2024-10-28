@@ -1,5 +1,7 @@
 package data.parsers.articles.staticArticles.impl;
 
+import domain.models.Article;
+import domain.models.Catalog;
 import jakarta.inject.Inject;
 import org.jsoup.Jsoup;
 
@@ -23,17 +25,20 @@ public final class SacramentParser {
             throw new RuntimeException(e);
         }
     }
-    public String parseTitle() {
+    private String parseTitle() {
         var title = Arrays.stream(parseData())
                 .limit(1)
                 .collect(Collectors.joining("\n"))
                 .split("^\\s");
         return String.join("", title).trim();
     }
-    public String parseDescription() {
+    private String parseDescription() {
         return Arrays.stream(parseData())
                 .skip(1)
                 .map(it -> it.replace("&nbsp;&nbsp;", ""))
                 .collect(Collectors.joining("\n"));
+    }
+    public Article getArticle(Catalog catalog) {
+        return new Article(catalog, parseTitle(), parseDescription(), "", 0L);
     }
 }

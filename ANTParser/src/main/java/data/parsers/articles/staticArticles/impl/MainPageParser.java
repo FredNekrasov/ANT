@@ -1,5 +1,7 @@
 package data.parsers.articles.staticArticles.impl;
 
+import domain.models.Article;
+import domain.models.Catalog;
 import jakarta.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
@@ -20,7 +22,7 @@ public final class MainPageParser {
             throw new RuntimeException(e);
         }
     }
-    public String parseBanner() {
+    private String parseBanner() {
         return parseData().stream()
                 .map(it -> it.wholeOwnText().replaceAll("\\s+", " ").trim())
                 .limit(2)
@@ -35,10 +37,10 @@ public final class MainPageParser {
                 .skip(8)
                 .toList();
     }
-    public String parseTitle() {
+    private String parseTitle() {
         return parseText().getFirst();
     }
-    public String parseDescription() {
+    private String parseDescription() {
         return parseText().stream()
                 .skip(1)
                 .collect(Collectors.joining("\n"));
@@ -47,5 +49,8 @@ public final class MainPageParser {
         return parseData().stream()
                 .map(it -> it.children().attr("data-original"))
                 .collect(Collectors.joining(""));
+    }
+    public Article getArticle(Catalog catalog) {
+        return new Article(catalog, parseTitle(), parseDescription(), parseBanner(), 0L);
     }
 }
