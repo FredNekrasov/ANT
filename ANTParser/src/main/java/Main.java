@@ -11,7 +11,7 @@ public class Main {
         PrintStream printer = new PrintStream(System.out, true, StandardCharsets.UTF_8);
         var choice = -1;
         while (choice != 0) {
-            System.out.println("""
+            printer.println("""
                     Меню:
                     * 1. Получить парсенные каталоги
                     * 2. Получить каталоги из удаленного хранилища
