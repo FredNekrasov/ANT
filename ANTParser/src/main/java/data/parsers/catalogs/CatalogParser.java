@@ -15,7 +15,7 @@ public final class CatalogParser {
                     .getElementsByClass("t451m__list_item")
                     .html()
                     .replaceAll("<a[\\w\\s-.\"=/>]*", "");
-            return Arrays.stream(extractedData.split("</a>")).map(it -> it.replaceAll("\n", "")).toList();
+            return Arrays.stream(extractedData.split("</a>")).map(it -> it.replaceAll("\n", "").trim()).toList();
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
             throw new RuntimeException(e);
