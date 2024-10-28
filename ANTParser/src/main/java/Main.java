@@ -1,4 +1,5 @@
 import di.DaggerAppComponent;
+import domain.models.Catalog;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
@@ -9,20 +10,10 @@ public class Main {
         var menu = DaggerAppComponent.create().getMenu();
         Scanner scanner = new Scanner(System.in);
         PrintStream printer = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-        var choice = -1;
-        while (choice != 0) {
-            printer.println("""
-                    Меню:
-                    * 1. Получить парсенные каталоги
-                    * 2. Получить каталоги из удаленного хранилища
-                    * 3. Создать/обновить каталог
-                    * 4. Удалить каталог
-                    * 5. Получить каталог по идентификатору
-                    * 0. Выход
-                    """);
-            menu.catalogCommands().catalogMenu(scanner, printer);
-            choice = scanner.nextInt();
-        }
+        var article = menu.parsers().articleParsers().staticArticleParsers().mainPageParser().getArticle(new Catalog("Главная страница", 1L));
+        printer.println(article);
+        var result = scanner.nextInt();
+        if (result == 0) menu.articleCommands().upsertArticle(article);
         System.out.println("Hello, World!");
     }
 }
