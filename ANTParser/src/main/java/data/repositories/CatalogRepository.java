@@ -47,7 +47,7 @@ public final class CatalogRepository implements IRepository<Catalog> {
     @Override
     public void update(Catalog model) {
 		try {
-			var response = client.send(httpRequests.put("http://localhost:5145/api/v1/Catalog", gson.toJson(model)), HttpResponse.BodyHandlers.ofString());
+			var response = client.send(httpRequests.put("http://localhost:5145/api/v1/Catalog/" + model.id(), gson.toJson(model)), HttpResponse.BodyHandlers.ofString());
 			System.out.println(response.statusCode());
 		} catch (IOException | InterruptedException e) {
 			System.out.println("catalog repository insert(): " + e.getMessage());
