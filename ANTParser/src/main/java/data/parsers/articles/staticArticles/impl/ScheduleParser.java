@@ -1,7 +1,5 @@
 package data.parsers.articles.staticArticles.impl;
 
-import domain.models.Article;
-import domain.models.Catalog;
 import jakarta.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.select.Elements;
