@@ -21,21 +21,18 @@ public final class ScheduleParser {
             throw new RuntimeException(e);
         }
     }
-    private String parseIf1Content() {
+    public String parseIf1Content() {
         return parseElements("t-align_center")
                 .stream()
                 .map(it -> it.children().attr("data-original"))
                 .collect(Collectors.joining("\n"));
     }
-    private String parseIf2Content() {
+    public String parseIf2Content() {
         return parseElements("t156__wrapper")
                 .stream()
                 .map(it -> it.getElementsByClass("t156__item"))
                 .flatMap(Collection::stream)
                 .map(it -> it.children().attr("data-original").trim())
                 .collect(Collectors.joining("\n"));
-    }
-    public Article getArticle(Catalog catalog) {
-        return new Article(catalog, parseIf1Content(), parseIf2Content(), "", 0L);
     }
 }
