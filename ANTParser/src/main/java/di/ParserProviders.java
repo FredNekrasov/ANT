@@ -13,8 +13,8 @@ import data.parsers.catalogs.CatalogParser;
 @Module
 public class ParserProviders {
 	@Provides
-	public DAP provideDAP(Advices advices, History history, ParishLife parishLife, YouthClub youthClub) {
-		return new DAP(advices, history, parishLife, youthClub);
+	public DAP provideDAP(Advice advice, History history, ParishLife parishLife, YouthClub youthClub) {
+		return new DAP(advice, history, parishLife, youthClub);
 	}
 	@Provides
 	public SAP provideSAP(

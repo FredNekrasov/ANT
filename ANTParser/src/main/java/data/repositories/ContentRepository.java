@@ -47,7 +47,7 @@ public final class ContentRepository implements IRepository<Content> {
     @Override
     public void update(Content model) {
         try {
-            var response = client.send(httpRequests.put("http://localhost:5145/api/v1/Content", gson.toJson(model)), HttpResponse.BodyHandlers.ofString());
+            var response = client.send(httpRequests.put("http://localhost:5145/api/v1/Content/" + model.id(), gson.toJson(model)), HttpResponse.BodyHandlers.ofString());
             System.out.println(response.statusCode());
         } catch (IOException | InterruptedException e) {
             System.out.println("catalog repository insert(): " + e.getMessage());
