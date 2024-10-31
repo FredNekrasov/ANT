@@ -10,17 +10,17 @@ public class Main {
         var menu = DaggerAppComponent.create().getMenu();
         Scanner scanner = new Scanner(System.in);
         PrintStream printer = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-        var parser = menu.parsers().articleParsers().dynamicArticleParsers().advice();
+        var parser = menu.parsers().articleParsers().dynamicArticleParsers().history();
         var choice = -1;
-        var id = 114L;
+        var id = 167L;
         var image = "";
         while (choice != 0) {
             System.out.println("Enter the url");
             var url = scanner.next();
-            var article = parser.getArticle(url, new Catalog("Советы священника", 7L));
+            var article = parser.getArticle(url, new Catalog("История", 8L));
             printer.println(article);
-            var content = parser.parseContent(url);
-            printer.println("|" + content + "|");
+            var content = parser.parseContent(url).split("\n");
+            for (int i = 0; i < content.length; i++) printer.println(i + "|" + content[i] + "|");
             System.out.println("enter your choice");
             choice = scanner.nextInt();
             if (choice == 9) {
@@ -29,7 +29,7 @@ public class Main {
             }
             menu.articleCommands().upsertArticle(article);
             if (image.isBlank()) {
-                menu.contentCommands().upsertContent(new Content(id, content, 0L));
+                for (var c : content) menu.contentCommands().upsertContent(new Content(id, c, 0L));
             } else menu.contentCommands().upsertContent(new Content(id, image, 0L));
             id++;
             image = "";
