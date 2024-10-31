@@ -5,8 +5,8 @@ import domain.models.Article;
 import domain.models.Catalog;
 import jakarta.inject.Inject;
 
-public final class Advices extends DATParser {
-    @Inject public Advices() {}
+public final class Advice extends DATParser {
+    @Inject public Advice() {}
     @Override
     public String parseContent(String url) {
         var element = super.parseData(url).getElementById("feed-cover");

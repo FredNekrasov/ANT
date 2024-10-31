@@ -10,7 +10,7 @@ public class Main {
         var menu = DaggerAppComponent.create().getMenu();
         Scanner scanner = new Scanner(System.in);
         PrintStream printer = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-        var parser = menu.parsers().articleParsers().dynamicArticleParsers().advices();
+        var parser = menu.parsers().articleParsers().dynamicArticleParsers().advice();
         var choice = -1;
         var id = 114L;
         var image = "";
