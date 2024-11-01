@@ -1,9 +1,11 @@
 package data.parsers;
 
-import data.parsers.articles.ArticleParsers;
+import data.parsers.articles.dynamicArticles.DAP;
+import data.parsers.articles.staticArticles.SAP;
 import data.parsers.catalogs.CatalogParser;
 
 public record Parsers(
     CatalogParser catalogParser,
-    ArticleParsers articleParsers
+	DAP dynamicArticleParsers,
+	SAP staticArticleParsers
 ) {}
