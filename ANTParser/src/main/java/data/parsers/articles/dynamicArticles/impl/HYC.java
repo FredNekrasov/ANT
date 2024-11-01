@@ -5,17 +5,12 @@ import domain.models.Article;
 import domain.models.Catalog;
 import jakarta.inject.Inject;
 
-public final class Advice extends DATParser {
-    @Inject public Advice() {}
-    @Override
-    public String parseContent(String url) {
-        var element = super.parseData(url).getElementById("feed-cover");
-        if (element == null) return "";
-        return element.getElementsByTag("img").attr("src");
-    }
+public final class HYC extends DATParser {// church History and Youth Club (HYC)
+    @Inject public HYC() {}
     private String parseDescription(String url) {
         return super.parseDescription(url, "t-redactor__text");
     }
+    @Override
     public Article getArticle(String url, Catalog catalog) {
         return new Article(catalog, parseTitle(url), parseDescription(url), parseDate(url), 0L);
     }

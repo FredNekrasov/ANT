@@ -3,8 +3,7 @@ package data.parsers.articles.dynamicArticles;
 import data.parsers.articles.dynamicArticles.impl.*;
 
 public record DAP(
-	Advice advice,
-    History history,
-    ParishLife parishLife,
-    YouthClub youthClub
+	PAS PAS,
+    HYC HYC,
+    ParishLife parishLife
 ) {}// dynamic article parsers
