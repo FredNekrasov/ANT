@@ -2,7 +2,6 @@
 using ANTWebAPI.PL.DTOs;
 using ANTWebAPI.PL.mappers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ANTWebAPI.PL.Controllers.impls;
 
@@ -19,7 +18,8 @@ public class ContentController(ContentUseCases contentUseCase) : AbsController<C
     public override async Task<ActionResult<ICollection<ContentDTO>>> GetListAsync()
     {
         var models = await _contentUseCase.GetListAsync();
-        return models.IsNullOrEmpty() ? NoContent() : Ok(models.Select(it => it.ToDto()));
+        var dtoList = models.Select(it => it.ToDto()).ToList();
+        return ((dtoList == null) || (dtoList.Count == 0)) ? NoContent() : Ok(models.Select(it => it.ToDto()));
     }
 
     [HttpGet("{id}")]

@@ -2,7 +2,6 @@
 using ANTWebAPI.PL.DTOs;
 using ANTWebAPI.PL.mappers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace ANTWebAPI.PL.Controllers;
 
