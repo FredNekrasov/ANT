@@ -5,7 +5,6 @@ namespace ANTWebAPI.BLL.Repositories;
 public interface IChapterRepository
 {
     Task<List<Chapter>> GetListAsync();
-    Task<List<Chapter>> GetPagedListAsync(int pageNumber, int pageSize);
-    Task<List<Chapter>> GetListByCatalogAsync(int catalogId);
+    Task<List<Chapter>> GetPagedListByCatalogAsync(int catalogId, int pageNumber, int pageSize);
     Task<int> GetTotalCountAsync();
 }
