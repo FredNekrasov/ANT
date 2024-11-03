@@ -18,4 +18,19 @@ public class ChapterController(IChapterRepository repository) : ControllerBase
         var models = await _repository.GetListAsync();
         return models.IsNullOrEmpty() ? NoContent() : Ok(models.Select(it => it.ToDto()));
     }
+    [HttpGet("{catalogId}")]
+    public async Task<ActionResult<ICollection<ChapterDTO>>> GetListByCatalogAsync(int catalogId)
+    {
+        var models = await _repository.GetListByCatalogAsync(catalogId);
+        return models.IsNullOrEmpty() ? NoContent() : Ok(models.Select(it => it.ToDto()));
+    }
+    [HttpGet("{pageNumber}&{pageSize}")]
+    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int pageNumber, int pageSize)
+    {
+        var models = await _repository.GetPagedListAsync(pageNumber, pageSize);
+        var dtoList = models.Select(it => it.ToDto()).ToList();
+        var totalRecords = await _repository.GetTotalCountAsync();
+        var response = new PagedResponse<ChapterDTO>(pageNumber, pageSize, totalRecords, dtoList);
+        return models.IsNullOrEmpty() ? NoContent() : Ok(response);
+    }
 }
