@@ -16,21 +16,15 @@ public class ChapterController(IChapterRepository repository) : ControllerBase
     public async Task<ActionResult<ICollection<ChapterDTO>>> GetListAsync()
     {
         var models = await _repository.GetListAsync();
-        return models.IsNullOrEmpty() ? NoContent() : Ok(models.Select(it => it.ToDto()));
+        return Ok(models.Select(it => it.ToDto()));
     }
-    [HttpGet("{catalogId}")]
-    public async Task<ActionResult<ICollection<ChapterDTO>>> GetListByCatalogAsync(int catalogId)
+    [HttpGet("{catalogId}/{pageNumber}&{pageSize}")]
+    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, int pageNumber = 1, int pageSize = 25)
     {
-        var models = await _repository.GetListByCatalogAsync(catalogId);
-        return models.IsNullOrEmpty() ? NoContent() : Ok(models.Select(it => it.ToDto()));
-    }
-    [HttpGet("{pageNumber}&{pageSize}")]
-    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int pageNumber, int pageSize)
-    {
-        var models = await _repository.GetPagedListAsync(pageNumber, pageSize);
+        var models = await _repository.GetPagedListByCatalogAsync(catalogId, pageNumber, pageSize);
         var dtoList = models.Select(it => it.ToDto()).ToList();
         var totalRecords = await _repository.GetTotalCountAsync();
         var response = new PagedResponse<ChapterDTO>(pageNumber, pageSize, totalRecords, dtoList);
-        return models.IsNullOrEmpty() ? NoContent() : Ok(response);
+        return Ok(response);
     }
 }
