@@ -1,20 +1,20 @@
 [versions]
 # plugins
-agp = "8.7.1"
+agp = "8.7.2"
 kotlin = "2.0.20"
 # libraries
 koin = "4.0.0"
 ## data
 sqlDelight = "2.0.2"
-ktor = "3.0.0"
+ktor = "3.0.1"
 kotlinxSerialization = "1.7.3"
 ## domain
 coroutines = "1.9.0"
 ## presentation
-coreKtx = "1.13.1"
-lifecycleKtx = "2.8.6"
+coreKtx = "1.15.0"
+lifecycleKtx = "2.8.7"
 activityCompose = "1.9.3"
-composeBom = "2024.10.00"
+composeBom = "2024.10.01"
 coil = "2.7.0"
 ## navigation
 #decompose = "3.2.0-beta02"
