@@ -21,7 +21,10 @@ interface IArticleRepository {
      *
      * The flow allows the caller to react to changes in the status of retrieving the list of articles.
      *
+     * @param catalogId The ID of the catalog to retrieve the list of articles from the server.
+     * @param pageNumber The page number to retrieve the list of articles from the server.
+     *
      * @return A flow of `ActionStatus<Article>`.
      **/
-    fun getList() : Flow<ActionStatus<Article>>
+    fun getList(catalogId: Int, pageNumber: Int) : Flow<ActionStatus<Article>>
 }
