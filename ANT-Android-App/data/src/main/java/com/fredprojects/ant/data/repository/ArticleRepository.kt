@@ -29,13 +29,17 @@ class ArticleRepository(
     /**
      * Get list of articles from the database and return it as a flow if there is no internet connection.
      * If there is internet connection, get list of articles from the server and return it as a flow
+     *
+     * @param catalogId The ID of the catalog to retrieve the list of articles from.
+     * @param pageNumber The number of the page to retrieve the list of articles from.
+     *
      * @see IArticleRepository.getList
      * @return a flow of ActionStatus
      */
-    override fun getList() : Flow<ActionStatus<Article>> = flow {
+    override fun getList(catalogId: Int, pageNumber: Int) : Flow<ActionStatus<Article>> = flow {
         val articleList = dao.getAllArticles().map { it.toModel() }
         emit(Loading(articleList))
-        val articleDtoList = client.get("/api/v1/chapter").body<List<ArticleDto>?>()
+        val articleDtoList = client.get("/api/v1/Сhapter/$catalogId?pageNumber=$pageNumber&pageSize=25").body<List<ArticleDto>?>()
         if(!articleDtoList.isNullOrEmpty()) {
             articleDtoList.forEach {
                 dao.deleteArticle(it.id)

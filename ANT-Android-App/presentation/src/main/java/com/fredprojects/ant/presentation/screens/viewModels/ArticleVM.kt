@@ -16,9 +16,9 @@ class ArticleVM(
 ) : ViewModel() {
     private val articlesMSF = MutableStateFlow(ArticleState())
     val articlesSF = articlesMSF.asStateFlow()
-    init {
+    fun getArticles(catalogId: Int, pageNumber: Int) {
         viewModelScope.launch {
-            repository.getList().flowOn(Dispatchers.IO).collectLatest {
+            repository.getList(catalogId, pageNumber).flowOn(Dispatchers.IO).collectLatest {
                 articlesMSF.emit(articlesSF.value.copy(list = it.list, status = it.status))
             }
         }
