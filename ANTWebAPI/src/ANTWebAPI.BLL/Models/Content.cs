@@ -2,6 +2,15 @@
 
 namespace ANTWebAPI.BLL.Models;
 
+/*
+ * Content entity is used for storing content data.
+ * Properties:
+ *    Id - primary key for content
+ *    ArticleId - foreign key for article
+ *    Data - content data for the article (contacts, images etc.)
+ *    Article is the navigation property for the article entity to which this content belongs
+ * Content entity has one-to-many relationship with Article entity. Many contents can belong to one article
+ */
 public class Content
 {
     public long Id { get; set; }
