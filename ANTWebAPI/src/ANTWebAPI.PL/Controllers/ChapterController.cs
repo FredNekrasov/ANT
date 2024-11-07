@@ -17,8 +17,8 @@ public class ChapterController(IChapterRepository repository) : ControllerBase
         var models = await _repository.GetListAsync();
         return Ok(models.Select(it => it.ToDto()));
     }
-    [HttpGet("{catalogId}/{pageNumber}&{pageSize}")]
-    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, int pageNumber = 1, int pageSize = 25)
+    [HttpGet("{catalogId}")]
+    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 25)
     {
         var models = await _repository.GetPagedListByCatalogAsync(catalogId, pageNumber, pageSize);
         var dtoList = models.Select(it => it.ToDto()).ToList();
