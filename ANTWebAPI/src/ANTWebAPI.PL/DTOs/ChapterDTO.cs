@@ -1,5 +1,8 @@
 ﻿namespace ANTWebAPI.PL.DTOs;
 
+/*
+ * Chapter DTO is used to transfer full information about the article to the client
+ */
 public class ChapterDTO
 {
     public long Id { get; set; }
