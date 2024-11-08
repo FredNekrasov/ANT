@@ -1,5 +1,8 @@
 ﻿namespace ANTWebAPI.PL.DTOs;
 
+/*
+ * Content DTO is used to transfer information about the content entity to the client
+ */
 public class ContentDTO
 {
     public long Id { get; set; }

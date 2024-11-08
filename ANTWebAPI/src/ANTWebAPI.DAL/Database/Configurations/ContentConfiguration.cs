@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ANTWebAPI.DAL.Database.Configurations;
 
+/*
+ * ContentConfiguration is a configuration class for the Content entity that configures the content table in the database.
+ */
 internal class ContentConfiguration : IEntityTypeConfiguration<Content>
 {
     public void Configure(EntityTypeBuilder<Content> entity)
