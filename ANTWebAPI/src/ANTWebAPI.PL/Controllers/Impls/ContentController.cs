@@ -31,8 +31,12 @@ public class ContentController(ContentUseCases contentUseCase) : AbsController<C
     public override async Task<ActionResult<ICollection<ContentDTO>>> GetListAsync()
     {
         var models = await _contentUseCase.GetListAsync();
-        var dtoList = models.Select(it => it.ToDto()).ToList();
-        return ((dtoList == null) || (dtoList.Count == 0)) ? NoContent() : Ok(models.Select(it => it.ToDto()));
+        List<ContentDTO> dtoList = [];
+        for (int i = 0; i < models.Count; i++)
+        {
+            dtoList.Add(models[i].ToDto());
+        }
+        return ((dtoList == null) || (dtoList.Count == 0)) ? NoContent() : Ok(dtoList);
     }
     /*
      * GetRecordAsync method returns record from database by id
