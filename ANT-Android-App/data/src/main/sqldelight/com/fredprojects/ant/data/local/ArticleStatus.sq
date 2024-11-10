@@ -1,0 +1,15 @@
+CREATE TABLE ArticleStatusEntity (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    totalRecords INTEGER NOT NULL,
+    currentDate TEXT NOT NULL
+);
+upsertArticleStatus:
+INSERT OR REPLACE
+INTO ArticleStatusEntity(id, totalRecords, currentDate)
+VALUES ?;
+
+getAllArticleStatusData:
+SELECT * FROM ArticleStatusEntity;
+
+deleteArticleStatus:
+DELETE FROM ArticleStatusEntity WHERE id = :id;

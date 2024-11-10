@@ -6,3 +6,13 @@ CREATE TABLE IF NOT EXISTS ArticleEntity(
     articleType TEXT NOT NULL,
     content TEXT NOT NULL
 );
+upsertArticle:
+INSERT OR REPLACE
+INTO ArticleEntity(id, title, description, date, articleType, content)
+VALUES ?;
+
+getAllArticles:
+SELECT * FROM ArticleEntity;
+
+deleteArticle:
+DELETE FROM ArticleEntity WHERE id = :id;
