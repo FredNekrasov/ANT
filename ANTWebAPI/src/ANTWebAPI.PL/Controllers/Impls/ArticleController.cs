@@ -38,7 +38,11 @@ public class ArticleController(ArticleUseCases articleUseCase) : AbsController<A
     public override async Task<ActionResult<ICollection<ArticleDTO>>> GetListAsync()
     {
         var models = await _articleUseCase.GetListAsync();
-        var dtoList = models.Select(it => it.ToDto()).ToList();
+        List<ArticleDTO> dtoList = [];
+        for (int i = 0; i < models.Count; i++)
+        {
+            dtoList.Add(models[i].ToDto());
+        }
         return ((dtoList == null) || (dtoList.Count == 0)) ? NoContent() : Ok(dtoList);
     }
     /*

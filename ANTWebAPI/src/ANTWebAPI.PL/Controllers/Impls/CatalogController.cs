@@ -38,7 +38,11 @@ public class CatalogController(CatalogUseCases catalogUseCase) : AbsController<C
     public override async Task<ActionResult<ICollection<CatalogDTO>>> GetListAsync()
     {
         var models = await _catalogUseCase.GetListAsync();
-        var dtoList = models.Select(it => it.ToDto()).ToList();
+        List<CatalogDTO> dtoList = [];
+        for (int i = 0; i < models.Count; i++)
+        {
+            dtoList.Add(models[i].ToDto());
+        }
         return ((dtoList == null) || (dtoList.Count == 0)) ? NoContent() : Ok(dtoList);
     }
     /*

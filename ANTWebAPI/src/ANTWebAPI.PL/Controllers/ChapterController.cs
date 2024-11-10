@@ -20,7 +20,12 @@ public class ChapterController(IChapterRepository repository) : ControllerBase
     public async Task<ActionResult<ICollection<ChapterDTO>>> GetListAsync()
     {
         var models = await _repository.GetListAsync();
-        return Ok(models.Select(it => it.ToDto()));
+        List<ChapterDTO> dtoList = [];
+        for (int i = 0; i < models.Count; i++)
+        {
+            dtoList.Add(models[i].ToDto());
+        }
+        return Ok(dtoList);
     }
     /*
      * GetPagedListAsync method returns page of records from database
@@ -35,7 +40,11 @@ public class ChapterController(IChapterRepository repository) : ControllerBase
     public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 25)
     {
         var models = await _repository.GetPagedListByCatalogAsync(catalogId, pageNumber, pageSize);
-        var dtoList = models.Select(it => it.ToDto()).ToList();
+        List<ChapterDTO> dtoList = [];
+        for (int i = 0; i < models.Count; i++)
+        {
+            dtoList.Add(models[i].ToDto());
+        }
         var totalRecords = await _repository.GetTotalCountAsync();
         var response = new PagedResponse<ChapterDTO>(pageNumber, pageSize, totalRecords, dtoList);
         return Ok(response);
