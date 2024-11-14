@@ -6,11 +6,8 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 
-val presentationModule = module {
+val presentationModule get() = module {
     viewModel(qualifier = qualifier<ArticleVM>()) {
-        ArticleVM(
-            get(qualifier<IArticleRepository>()),
-            get()
-        )
+        ArticleVM(get(qualifier<IArticleRepository>()))
     }
 }
