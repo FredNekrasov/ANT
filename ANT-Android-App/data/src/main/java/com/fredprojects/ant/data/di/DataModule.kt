@@ -3,8 +3,7 @@ package com.fredprojects.ant.data.di
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 
-import com.fredprojects.ant.data.local.ANTDatabase
-import com.fredprojects.ant.data.local.ArticleDao
+import com.fredprojects.ant.data.local.*
 import com.fredprojects.ant.data.repository.ArticleRepository
 import com.fredprojects.ant.domain.repository.IArticleRepository
 
@@ -20,8 +19,8 @@ import kotlinx.serialization.json.Json
 import org.koin.core.qualifier.qualifier
 import org.koin.dsl.module
 
-val dataModule = module {
-    factory(qualifier = qualifier<SqlDriver>()) {
+val dataModule get() = module {
+    factory<SqlDriver>(qualifier = qualifier<SqlDriver>()) {
         AndroidSqliteDriver(ANTDatabase.Schema, get(), "ANTDatabase.db")
     }
     single(qualifier = qualifier<ANTDatabase>()) {
@@ -29,6 +28,9 @@ val dataModule = module {
     }
     single(qualifier = qualifier<ArticleDao>()) {
         ArticleDao(get(qualifier = qualifier<ANTDatabase>()))
+    }
+    single(qualifier = qualifier<ArticleStatusDao>()) {
+        ArticleStatusDao(get(qualifier = qualifier<ANTDatabase>()))
     }
     single<HttpClient>(createdAtStart = true, qualifier = qualifier<HttpClient>()) {
         HttpClient(OkHttp) {
@@ -48,6 +50,7 @@ val dataModule = module {
     single<IArticleRepository>(qualifier<IArticleRepository>()) {
         ArticleRepository(
             get(qualifier = qualifier<ArticleDao>()),
+            get(qualifier = qualifier<ArticleStatusDao>()),
             get(qualifier = qualifier<HttpClient>())
         )
     }
