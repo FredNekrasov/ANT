@@ -2,14 +2,12 @@ package com.fredprojects.ant.presentation.screens.onePages
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.fredprojects.ant.presentation.core.*
 import com.fredprojects.ant.presentation.screens.viewModels.ArticleState
 
@@ -21,23 +19,14 @@ import com.fredprojects.ant.presentation.screens.viewModels.ArticleState
 @Composable
 fun Contacts(
     state: ArticleState,
-    closeDialog: Action,
     openSomeApp: (String) -> Unit
 ) {
-    Dialog(closeDialog) {
-        Column(Modifier.fillMaxWidth().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-            state.list.forEach {
-                if(it.articleType != ANTStrings.CONTACTS) return@forEach
-                FredTitle(it.title)
-                Spacer(modifier = Modifier.height(8.dp))
-                ContactsCard(contentList = it.content, openSomeApp)
-            }
-            FredIconButton(
-                closeDialog,
-                Icons.AutoMirrored.Default.ArrowBack,
-                Icons.AutoMirrored.Default.ArrowBack.name,
-                Modifier.fillMaxWidth().align(Alignment.Start)
-            )
+    Column(Modifier.fillMaxWidth().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        state.list.forEach {
+            if(it.articleType != ANTStrings.CONTACTS) return@forEach
+            FredTitle(it.title)
+            Spacer(modifier = Modifier.height(8.dp))
+            ContactsCard(contentList = it.content, openSomeApp)
         }
     }
 }
