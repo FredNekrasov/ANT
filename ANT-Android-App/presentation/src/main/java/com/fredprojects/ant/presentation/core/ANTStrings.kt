@@ -1,6 +1,7 @@
 package com.fredprojects.ant.presentation.core
 
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.snapshots.SnapshotStateList
 
 /**
  * This class contains all the constants and strings used in the application.
@@ -37,5 +38,5 @@ object ANTStrings {
     const val TELEGRAM = "Телеграм"
     const val VK = "VK"
 
-    val screens = mutableStateListOf(MAIN, PARISH_LIFE, SCHEDULE, SPIRITUAL_TALKS, YOUTH_CLUB, PRIESTHOOD, ADVICES, HISTORY, SACRAMENTS, CONTACTS, INFORMATION, VOLUNTEERISM)
+    val screens: SnapshotStateList<String> = mutableStateListOf(MAIN, PARISH_LIFE, SCHEDULE, SPIRITUAL_TALKS, YOUTH_CLUB, PRIESTHOOD, ADVICES, HISTORY, SACRAMENTS, CONTACTS, INFORMATION, VOLUNTEERISM)
 }
