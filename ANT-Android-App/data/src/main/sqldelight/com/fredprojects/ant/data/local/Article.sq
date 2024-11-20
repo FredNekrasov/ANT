@@ -11,8 +11,14 @@ INSERT OR REPLACE
 INTO ArticleEntity(id, title, description, date, articleType, content)
 VALUES ?;
 
-getAllArticles:
-SELECT * FROM ArticleEntity;
+getCountAllArticles:
+SELECT COUNT(*) FROM ArticleEntity;
+
+getArticlesByCatalog:
+SELECT * FROM ArticleEntity WHERE articleType = :catalogName;
+
+getAllArticleTypes:
+SELECT DISTINCT articleType FROM ArticleEntity;
 
 deleteArticle:
 DELETE FROM ArticleEntity WHERE id = :id;
