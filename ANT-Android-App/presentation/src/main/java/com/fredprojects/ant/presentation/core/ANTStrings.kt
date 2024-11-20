@@ -29,6 +29,7 @@ object ANTStrings {
     const val CONTACTS = "Контакты"
     const val INFORMATION = "Информация"
     const val VOLUNTEERISM = "Приходская добровольческая служба"
+    const val STORIES = "Рассказы"
     // URLs
     const val SPIRITUAL_TALKS_URL = "https://hramalnevskogo.ru/page40967215.html"
     const val INFORMATION_URL = "https://hramalnevskogo.ru/page42533272.html"
