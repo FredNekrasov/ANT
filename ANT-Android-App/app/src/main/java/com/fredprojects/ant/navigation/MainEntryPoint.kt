@@ -13,18 +13,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.fredprojects.ant.presentation.core.*
-import com.fredprojects.ant.presentation.screens.viewModels.ArticleVM
 import kotlinx.coroutines.launch
 
 @Composable
 fun MainEntryPoint(
-    articleVM: ArticleVM
+    openApp: (String) -> Unit
 ) {
     val navItems = ANTStrings.screens
     val scope = rememberCoroutineScope()
     val controller = rememberNavController()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
-    var isContactsOpen by rememberSaveable { mutableStateOf(false) }
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }
     val navigateTo: (Int, String) -> Unit = { index, route ->
         controller.navigate(route)
@@ -41,9 +39,8 @@ fun MainEntryPoint(
                             selected = index == selectedItemIndex,
                             onClick = {
                                 when(route) {
-                                    ANTStrings.SPIRITUAL_TALKS -> articleVM.openApp(ANTStrings.SPIRITUAL_TALKS_URL)
-                                    ANTStrings.CONTACTS -> isContactsOpen = true
-                                    ANTStrings.INFORMATION -> articleVM.openApp(ANTStrings.INFORMATION_URL)
+                                    ANTStrings.SPIRITUAL_TALKS -> openApp(ANTStrings.SPIRITUAL_TALKS_URL)
+                                    ANTStrings.INFORMATION -> openApp(ANTStrings.INFORMATION_URL)
                                     else -> navigateTo(index, route)
                                 }
                             }
@@ -59,7 +56,7 @@ fun MainEntryPoint(
             topBar = { FredTopAppBar { scope.launch { drawerState.open() } } },
             floatingActionButton = { if(currentRoute != navItems[2]) FredFloatingActionButton({ navigateTo(2, navItems[2]) }, Icons.Outlined.DateRange) },
         ) { padding ->
-            ANTNavHost(controller, articleVM, { isContactsOpen = !isContactsOpen }, Modifier.fillMaxSize().padding(padding))
+            ANTNavHost(controller, openApp, Modifier.fillMaxSize().padding(WindowInsets.systemBars.asPaddingValues()).padding(padding))
         }
     }
 }
