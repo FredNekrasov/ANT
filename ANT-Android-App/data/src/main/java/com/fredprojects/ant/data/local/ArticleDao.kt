@@ -23,7 +23,7 @@ class ArticleDao(
      * @return List of articles
      */
     suspend fun getArticlesByCatalog(catalogId: Int): List<ArticleEntity> = withContext(Dispatchers.IO) {
-        val catalog = db.articleQueries.getAllArticleTypes().executeAsList()[catalogId]
+        val catalog = db.articleQueries.getAllArticleTypes().executeAsList().getOrNull(catalogId) ?: return@withContext emptyList()
         db.articleQueries.getArticlesByCatalog(catalog).executeAsList()
     }
     /**
