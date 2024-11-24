@@ -18,6 +18,13 @@ class ArticleStatusDao(
         db.articleStatusQueries.getArticleStatusByCatalogId(catalogId).executeAsOneOrNull()
     }
     /**
+     * Get count of all article status from the database
+     * @return Long
+     */
+    suspend fun getCountAllArticleStatus(): Long = withContext(Dispatchers.IO) {
+        db.articleStatusQueries.getCountAllArticleStatus().executeAsOne()
+    }
+    /**
      * Upsert article status in the database
      * @param articleStatus is an ArticleStatus class that will be inserted in the database if it doesn't exist or updated otherwise
      */

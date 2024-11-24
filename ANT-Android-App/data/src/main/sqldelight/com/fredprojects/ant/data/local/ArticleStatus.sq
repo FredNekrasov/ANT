@@ -11,5 +11,8 @@ VALUES ?;
 getArticleStatusByCatalogId:
 SELECT * FROM ArticleStatusEntity WHERE catalogId = :catalogId;
 
+getCountAllArticleStatus:
+SELECT COUNT(*) FROM ArticleStatusEntity;
+
 deleteArticleStatus:
 DELETE FROM ArticleStatusEntity WHERE id = :id;
