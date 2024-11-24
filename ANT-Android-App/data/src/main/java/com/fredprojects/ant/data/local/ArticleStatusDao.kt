@@ -14,7 +14,7 @@ class ArticleStatusDao(
      * Get all article status from the database
      * @return List of articles
      */
-    suspend fun getAllArticleStatus(catalogId: Long): ArticleStatusEntity? = withContext(Dispatchers.IO) {
+    suspend fun getArticleStatusByCatalogId(catalogId: Long): ArticleStatusEntity? = withContext(Dispatchers.IO) {
         db.articleStatusQueries.getArticleStatusByCatalogId(catalogId).executeAsOneOrNull()
     }
     /**
