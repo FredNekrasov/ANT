@@ -1,8 +1,7 @@
 package com.fredprojects.ant.data.repository
 
 import com.fredprojects.ant.data.local.*
-import com.fredprojects.ant.data.mappers.toEntity
-import com.fredprojects.ant.data.mappers.toModel
+import com.fredprojects.ant.data.mappers.*
 import com.fredprojects.ant.data.remote.dto.ArticleResponse
 import com.fredprojects.ant.domain.models.Article
 import com.fredprojects.ant.domain.repository.IArticleRepository
@@ -31,8 +30,8 @@ class ArticleRepository(
     private val client: HttpClient
 ) : IArticleRepository {
     /**
-     * Get list of articles from the database and return it as a flow if there is no internet connection.
-     * If there is internet connection, get list of articles from the server and return it as a flow
+     * Get list of articles by catalog id from the database and return it as a flow if there is no internet connection.
+     * If there is internet connection, get list of articles by catalog id from the server and return it as a flow
      *
      * @param catalogId The ID of the catalog to retrieve the list of articles from.
      * @param pageNumber The number of the page to retrieve the list of articles from.
@@ -41,23 +40,23 @@ class ArticleRepository(
      * @return a flow of ActionStatus
      */
     override fun getList(catalogId: Int, pageNumber: Int) : Flow<ActionStatus<Article>> = flow {
-        val articleList = articleDao.getAllArticles().map { it.toModel() }
+        val articleList = articleDao.getArticlesByCatalog(catalogId).map { it.toModel() }
         if(!hasNewArticles(catalogId)) {
             emit(Success(articleList))
             return@flow
         }
         emit(Loading(articleList))
-        val response = client.get("/v1/Сhapter/$catalogId?pageNumber=$pageNumber").body<ArticleResponse?>()
+        val response = client.get("http://ip:port/api/v1/Chapter/$catalogId?pageNumber=$pageNumber").body<ArticleResponse?>()
         when {
             response == null -> emit(Error(articleList, NO_DATA))
-            articleList.size == response.totalRecords -> emit(Success(articleList))
+            articleDao.getCountAllArticles() == response.totalRecords.toLong() -> emit(Success(articleList))
             else -> {
                 refreshData(response, catalogId)
                 emit(Success(response.data.map { it.toModel() }))
             }
         }
     }.catch { ex ->
-        val articleList = articleDao.getAllArticles().map { it.toModel() }
+        val articleList = articleDao.getArticlesByCatalog(catalogId).map { it.toModel() }
         when(ex) {
             is HttpRequestTimeoutException -> emit(Error(articleList, CONNECTION_ERROR))
             is ClientRequestException -> emit(Error(articleList, NO_INTERNET))
@@ -76,7 +75,7 @@ class ArticleRepository(
             articleDao.deleteArticle(it.id)
             articleDao.upsertArticle(it.toEntity())
         }
-        val articleStatus = articleStatusDao.getAllArticleStatus().firstOrNull { it.catalogId == catalogId.toLong() } ?: ArticleStatusEntity(0L, response.totalRecords.toLong(), catalogId.toLong(), LocalDate.now().toString())
+        val articleStatus = articleStatusDao.getArticleStatusByCatalogId(catalogId.toLong()) ?: ArticleStatusEntity(articleStatusDao.getCountAllArticleStatus(), catalogId.toLong(), LocalDate.now().toString())
         articleStatusDao.upsertArticleStatus(articleStatus.copy(currentDate = LocalDate.now().toString()))
     }
     /**
@@ -84,7 +83,7 @@ class ArticleRepository(
      * @return Boolean
      */
     private suspend fun hasNewArticles(catalogId: Int): Boolean {
-        val lastArticleStatus = articleStatusDao.getAllArticleStatus().firstOrNull { it.catalogId == catalogId.toLong() } ?: return true
+        val lastArticleStatus = articleStatusDao.getArticleStatusByCatalogId(catalogId.toLong()) ?: return true
         return !lastArticleStatus.currentDate.contentEquals(LocalDate.now().toString())
     }
 }
