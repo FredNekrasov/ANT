@@ -1,7 +1,7 @@
 [versions]
 # plugins
-agp = "8.7.2"
-kotlin = "2.0.20"
+agp = "8.7.3"
+kotlin = "2.1.0"
 # libraries
 koin = "4.0.0"
 ## data
