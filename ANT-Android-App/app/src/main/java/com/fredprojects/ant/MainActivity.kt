@@ -1,7 +1,5 @@
 package com.fredprojects.ant
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,7 +13,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ANTTheme {
-                MainEntryPoint { url -> startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) }
+                MainEntryPoint()
             }
         }
     }

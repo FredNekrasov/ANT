@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -16,9 +17,8 @@ import com.fredprojects.ant.presentation.core.*
 import kotlinx.coroutines.launch
 
 @Composable
-fun MainEntryPoint(
-    openApp: (String) -> Unit
-) {
+fun MainEntryPoint() {
+    val uriHandler = LocalUriHandler.current
     val navItems = ANTStrings.screens
     val scope = rememberCoroutineScope()
     val controller = rememberNavController()
@@ -39,8 +39,8 @@ fun MainEntryPoint(
                             selected = index == selectedItemIndex,
                             onClick = {
                                 when(route) {
-                                    ANTStrings.SPIRITUAL_TALKS -> openApp(ANTStrings.SPIRITUAL_TALKS_URL)
-                                    ANTStrings.INFORMATION -> openApp(ANTStrings.INFORMATION_URL)
+                                    ANTStrings.SPIRITUAL_TALKS -> uriHandler.openUri(ANTStrings.SPIRITUAL_TALKS_URL)
+                                    ANTStrings.INFORMATION -> uriHandler.openUri(ANTStrings.INFORMATION_URL)
                                     else -> navigateTo(index, route)
                                 }
                             }
@@ -56,7 +56,7 @@ fun MainEntryPoint(
             topBar = { FredTopAppBar { scope.launch { drawerState.open() } } },
             floatingActionButton = { if(currentRoute != navItems[2]) FredFloatingActionButton({ navigateTo(2, navItems[2]) }, Icons.Outlined.DateRange) },
         ) { padding ->
-            ANTNavHost(controller, openApp, Modifier.fillMaxSize().padding(WindowInsets.systemBars.asPaddingValues()).padding(padding))
+            ANTNavHost(controller, Modifier.fillMaxSize().padding(WindowInsets.systemBars.asPaddingValues()).padding(padding))
         }
     }
 }

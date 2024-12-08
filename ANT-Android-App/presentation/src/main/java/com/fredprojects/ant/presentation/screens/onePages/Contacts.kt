@@ -7,26 +7,24 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.unit.dp
 import com.fredprojects.ant.presentation.core.*
 import com.fredprojects.ant.presentation.screens.viewModels.ArticleState
 
 /**
  *   Contacts screen with buttons for phone, telegram, vk, email.
- *   @param openSomeApp action for opening some app
  *   @param state
  */
 @Composable
-fun Contacts(
-    state: ArticleState,
-    openSomeApp: (String) -> Unit
-) {
+fun Contacts(state: ArticleState) {
+    val uriHandler = LocalUriHandler.current
     Column(Modifier.fillMaxWidth().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
         state.list.forEach {
             if(it.articleType != ANTStrings.CONTACTS) return@forEach
             FredTitle(it.title)
             Spacer(modifier = Modifier.height(8.dp))
-            ContactsCard(contentList = it.content, openSomeApp)
+            ContactsCard(contentList = it.content, uriHandler::openUri)
         }
     }
 }
