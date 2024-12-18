@@ -6,18 +6,20 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.util.fastForEach
 import com.fredprojects.ant.presentation.core.*
 import com.fredprojects.ant.presentation.core.components.ImageSlider
-import com.fredprojects.ant.presentation.screens.viewModels.ArticleState
+import com.fredprojects.ant.presentation.screens.viewModels.MainArticleState
 
 @Composable
-fun MainScreen(state: ArticleState) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(8.dp)) {
-        state.list.forEach {
-            if(it.articleType != ANTStrings.MAIN) return@forEach
-            FredTitle(it.articleType)
-            Spacer(Modifier.height(4.dp))
-            if(it.date.isNotBlank()) FredText(it.date, modifier = Modifier.fillMaxWidth())
+fun MainScreen(
+    state: MainArticleState,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier.verticalScroll(rememberScrollState()).padding(8.dp)) {
+        state.list.fastForEach {
+            if(it.articleType != ANTStrings.MAIN) return@fastForEach
+            FredText(it.date, modifier = Modifier.fillMaxWidth())
             Spacer(Modifier.height(8.dp))
             FredTitle(it.title)
             Spacer(Modifier.height(4.dp))

@@ -1,23 +1,47 @@
 package com.fredprojects.ant.presentation.screens
 
 import androidx.compose.runtime.Composable
-import com.fredprojects.ant.presentation.core.ANTStrings
+import androidx.compose.ui.Modifier
 import com.fredprojects.ant.presentation.core.components.ContentList
-import com.fredprojects.ant.presentation.screens.viewModels.ArticleState
+import com.fredprojects.ant.presentation.screens.viewModels.PagedArticleState
 
 @Composable
-fun ParishLife(state: ArticleState) {
-    ContentList(state) { it.articleType == ANTStrings.PARISH_LIFE }
+fun ParishLife(
+    state: PagedArticleState,
+    getArticles: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    ContentList(state, getArticles, modifier)
 }
 @Composable
-fun YouthClub(state: ArticleState) {
-    ContentList(state) { it.articleType == ANTStrings.YOUTH_CLUB }
+fun YouthClub(
+    state: PagedArticleState,
+    getArticles: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    ContentList(state, getArticles, modifier)
 }
 @Composable
-fun Advices(state: ArticleState) {
-    ContentList(state) { it.articleType == ANTStrings.ADVICES }
+fun Advices(
+    state: PagedArticleState,
+    getArticles: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    ContentList(state, getArticles, modifier)
 }
 @Composable
-fun History(state: ArticleState) {
-    ContentList(state) { it.articleType == ANTStrings.HISTORY }
+fun History(
+    state: PagedArticleState,
+    getArticles: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    ContentList(state, getArticles, modifier)
+}
+@Composable
+fun Stories(
+    state: PagedArticleState,
+    getArticles: (Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    ContentList(state, getArticles, modifier)
 }
