@@ -4,21 +4,20 @@ CREATE TABLE IF NOT EXISTS ArticleEntity(
     description TEXT NOT NULL,
     date TEXT NOT NULL,
     articleType TEXT NOT NULL,
+    pageNumber INTEGER NOT NULL,
+    catalogId INTEGER NOT NULL,
     content TEXT NOT NULL
 );
 upsertArticle:
 INSERT OR REPLACE
-INTO ArticleEntity(id, title, description, date, articleType, content)
+INTO ArticleEntity(id, title, description, date, articleType, pageNumber, catalogId, content)
 VALUES ?;
 
 getCountAllArticles:
 SELECT COUNT(*) FROM ArticleEntity;
 
-getArticlesByCatalog:
-SELECT * FROM ArticleEntity WHERE articleType = :catalogName;
-
-getAllArticleTypes:
-SELECT DISTINCT articleType FROM ArticleEntity;
+getArticlesBy:
+SELECT * FROM ArticleEntity WHERE catalogId = :catalogId AND pageNumber = :pageNumber;
 
 deleteArticle:
 DELETE FROM ArticleEntity WHERE id = :id;
