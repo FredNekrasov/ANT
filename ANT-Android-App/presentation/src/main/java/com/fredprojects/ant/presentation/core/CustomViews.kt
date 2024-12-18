@@ -43,9 +43,9 @@ fun FredTButton(onClick: Action, text: String, modifier: Modifier = Modifier) {
     }
 }
 @Composable
-fun FredIconButton(onClick: Action, icon: ImageVector, description: String, modifier: Modifier = Modifier) {
-    IconButton(onClick, modifier) {
-        Icon(icon, description)
+fun FredIconButton(onClick: Action, icon: ImageVector, modifier: Modifier = Modifier, enabled: Boolean = true) {
+    IconButton(onClick, modifier, enabled) {
+        Icon(icon, icon.toString())
     }
 }
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,7 +54,7 @@ fun FredTopAppBar(openDrawer: Action) {
     TopAppBar(
         title = { FredText(ANTStrings.MAIN_TITLE) },
         Modifier.fillMaxWidth(),
-        navigationIcon = { FredIconButton(openDrawer, Icons.Outlined.Menu, ANTStrings.MENU) }
+        navigationIcon = { FredIconButton(openDrawer, Icons.Outlined.Menu) }
     )
 }
 @Composable
@@ -82,14 +82,17 @@ fun FredFloatingActionButton(onClick: Action, icon: ImageVector) {
 fun FredCard(onClick: Action, uri: String?, title: String, date: String, modifier: Modifier = Modifier) {
     Card(
         onClick,
-        modifier.border(2.dp, MaterialTheme.colorScheme.primary, MaterialTheme.shapes.medium).padding(8.dp),
+        modifier.wrapContentWidth().border(DividerDefaults.Thickness, MaterialTheme.colorScheme.primary, MaterialTheme.shapes.small).padding(4.dp),
         shape = MaterialTheme.shapes.small,
         colors = CardDefaults.outlinedCardColors()
     ) {
-        if(!uri.isNullOrBlank()) AsyncImage(model = uri.toUri(), contentDescription = title, modifier = Modifier.fillMaxWidth().fillMaxHeight(0.3f))
-        Spacer(Modifier.height(4.dp))
-        Text(title, Modifier.align(Alignment.CenterHorizontally).padding(horizontal = 4.dp), fontFamily = FontFamily.Serif, textAlign = TextAlign.Center, overflow = TextOverflow.Ellipsis, maxLines = 1)
-        Spacer(Modifier.height(4.dp))
-        FredText(date, modifier = Modifier.align(Alignment.End))
+        if(!uri.isNullOrBlank()) Box(Modifier.fillMaxHeight(0.2f).fillMaxWidth()) {
+            AsyncImage(model = uri.toUri(), contentDescription = title, modifier = Modifier.fillMaxWidth())
+        }
+        Row(Modifier.fillMaxWidth().padding(8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Text(title, Modifier.weight(1f), fontFamily = FontFamily.Serif, textAlign = TextAlign.Center, overflow = TextOverflow.Ellipsis, maxLines = 1)
+            Spacer(Modifier.width(4.dp))
+            FredText(date, modifier = Modifier.wrapContentWidth())
+        }
     }
 }
