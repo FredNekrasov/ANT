@@ -56,7 +56,7 @@ fun MainEntryPoint() {
             topBar = { FredTopAppBar { scope.launch { drawerState.open() } } },
             floatingActionButton = { if(currentRoute != navItems[2]) FredFloatingActionButton({ navigateTo(2, navItems[2]) }, Icons.Outlined.DateRange) },
         ) { padding ->
-            ANTNavHost(controller, Modifier.fillMaxSize().padding(WindowInsets.systemBars.asPaddingValues()).padding(padding))
+            ANTNavHost(controller, Modifier.fillMaxSize().padding(padding))
         }
     }
 }
