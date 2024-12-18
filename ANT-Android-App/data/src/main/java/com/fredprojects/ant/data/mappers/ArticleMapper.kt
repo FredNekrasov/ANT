@@ -22,12 +22,14 @@ fun ArticleDto.toModel() = Article(
  *  Mapper for mapping ArticleDto to ArticleEntity and vice versa
  *  @return ArticleEntity
  */
-fun ArticleDto.toEntity() = ArticleEntity(
+fun ArticleDto.toEntity(catalogId: Int, pageNumber: Int) = ArticleEntity(
     id = id,
     title = title,
     description = description,
     date = dateOrBanner,
     articleType = catalog.name,
+    pageNumber = pageNumber.toLong(),
+    catalogId = catalogId.toLong(),
     content = Json.encodeToString(content)
 )
 /**
