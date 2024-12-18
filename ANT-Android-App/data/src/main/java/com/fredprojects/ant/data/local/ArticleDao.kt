@@ -11,20 +11,20 @@ class ArticleDao(
     private val db: ANTDatabase
 ) {
     /**
-     * Get count all articles from the database
+     * Get count of all articles from the database
      * @return Long
      */
     suspend fun getCountAllArticles(): Long = withContext(Dispatchers.IO) {
         db.articleQueries.getCountAllArticles().executeAsOne()
     }
     /**
-     * Get articles by catalog from the database
+     * Get articles filtered by catalog id and page number from the database
      * @param catalogId is an ID of the catalog
+     * @param pageNumber is a number of the page
      * @return List of articles
      */
-    suspend fun getArticlesByCatalog(catalogId: Int): List<ArticleEntity> = withContext(Dispatchers.IO) {
-        val catalog = db.articleQueries.getAllArticleTypes().executeAsList().getOrNull(catalogId) ?: return@withContext emptyList()
-        db.articleQueries.getArticlesByCatalog(catalog).executeAsList()
+    suspend fun getArticlesBy(catalogId: Int, pageNumber: Int): List<ArticleEntity> = withContext(Dispatchers.IO) {
+        db.articleQueries.getArticlesBy(catalogId.toLong(), pageNumber.toLong()).executeAsList()
     }
     /**
      * Upsert article in the database

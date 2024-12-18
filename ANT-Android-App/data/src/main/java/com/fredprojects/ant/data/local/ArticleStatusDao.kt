@@ -11,11 +11,11 @@ class ArticleStatusDao(
     private val db: ANTDatabase
 ) {
     /**
-     * Get all article status from the database
+     * Get filtered list of article status from the database
      * @return List of articles
      */
-    suspend fun getArticleStatusByCatalogId(catalogId: Long): ArticleStatusEntity? = withContext(Dispatchers.IO) {
-        db.articleStatusQueries.getArticleStatusByCatalogId(catalogId).executeAsOneOrNull()
+    suspend fun getArticleStatusBy(catalogId: Int, pageNumber: Int): ArticleStatusEntity? = withContext(Dispatchers.IO) {
+        db.articleStatusQueries.getArticleStatusBy(catalogId.toLong(), pageNumber.toLong()).executeAsOneOrNull()
     }
     /**
      * Get count of all article status from the database
