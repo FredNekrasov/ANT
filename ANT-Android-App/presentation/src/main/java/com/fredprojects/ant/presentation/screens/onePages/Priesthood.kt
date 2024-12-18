@@ -6,16 +6,26 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.fredprojects.ant.presentation.core.ANTStrings
-import com.fredprojects.ant.presentation.core.components.ListItemDetails
-import com.fredprojects.ant.presentation.screens.viewModels.ArticleState
+import androidx.compose.ui.util.fastForEach
+import com.fredprojects.ant.presentation.core.*
+import com.fredprojects.ant.presentation.core.components.ImageSlider
+import com.fredprojects.ant.presentation.screens.viewModels.MainArticleState
 
 @Composable
-fun Priesthood(state: ArticleState) {
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(8.dp)) {
-        state.list.forEach {
-            if(it.articleType != ANTStrings.PRIESTHOOD) return@forEach
-            ListItemDetails(it, Modifier.fillMaxWidth())
+fun Priesthood(
+    state: MainArticleState,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier.padding(8.dp)) {
+        state.list.fastForEach {
+            if(it.articleType != ANTStrings.PRIESTHOOD) return@fastForEach
+            FredTitle(it.articleType)
+            Spacer(Modifier.height(4.dp))
+            FredTitle(it.title)
+            Spacer(Modifier.height(4.dp))
+            FredText(it.description, Modifier.fillMaxHeight(0.6f).verticalScroll(rememberScrollState()))
+            Spacer(Modifier.height(4.dp))
+            ImageSlider(it, Modifier.fillMaxWidth())
         }
     }
 }
