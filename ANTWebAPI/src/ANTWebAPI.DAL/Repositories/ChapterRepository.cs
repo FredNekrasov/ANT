@@ -34,9 +34,15 @@ public class ChapterRepository(ANTDbContext context) : IChapterRepository
     public async Task<List<Chapter>> GetPagedListByCatalogAsync(int catalogId, int pageNumber, int pageSize)
     {
         if (!await _context.Catalogs.AnyAsync(e => e.Id == catalogId)) return [];
+        if (catalogId == 1)
+        {
+            var mainArticles = await _context.Articles.Where(e => e.CatalogId != 2 && e.CatalogId != 5 && e.CatalogId != 7 && e.CatalogId != 8 && e.CatalogId != 13).ToListAsync();
+            var mainChapterList = await GetChapterListAsync(mainArticles);
+            return mainChapterList;
+        }
         var articles = await _context.Articles.Where(e => e.CatalogId == catalogId).ToListAsync();
         var chapterList = await GetChapterListAsync(articles);
-        return articles.Count < 25 ? chapterList : chapterList.Skip((pageNumber - 1) * pageSize)
+        return articles.Count < pageSize ? chapterList : chapterList.Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
             .ToList();
     }
