@@ -37,7 +37,7 @@ public class ChapterController(IChapterRepository repository) : ControllerBase
      * @returns PagedResponse<ChapterDTO>
      */
     [HttpGet("{catalogId}")]
-    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 25)
+    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 50)
     {
         var models = await _repository.GetPagedListByCatalogAsync(catalogId, pageNumber, pageSize);
         List<ChapterDTO> dtoList = [];
@@ -46,7 +46,7 @@ public class ChapterController(IChapterRepository repository) : ControllerBase
             dtoList.Add(models[i].ToDto());
         }
         var totalRecords = await _repository.GetTotalCountAsync();
-        var response = new PagedResponse<ChapterDTO>(pageNumber, pageSize, totalRecords, dtoList);
+        var response = new PagedResponse<ChapterDTO>(pageNumber, dtoList.Count, totalRecords, dtoList);
         return Ok(response);
     }
 }
