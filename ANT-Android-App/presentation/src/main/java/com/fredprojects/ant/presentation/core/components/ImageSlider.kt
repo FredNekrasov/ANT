@@ -9,6 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.core.net.toUri
 import coil.compose.AsyncImage
@@ -34,7 +35,7 @@ internal fun ImageSlider(
                 Modifier.fillMaxWidth().clickable {
                     url = photo
                     isDialogVisible = true
-                }
+                }.padding(start = 2.dp, end = 2.dp),
             )
         }
     }

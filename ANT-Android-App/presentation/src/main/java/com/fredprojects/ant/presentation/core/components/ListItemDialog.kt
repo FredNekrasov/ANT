@@ -24,15 +24,15 @@ internal inline fun ListItemDialog(
     article: Article,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier.background(MaterialTheme.colorScheme.background)) {
+    Column(modifier.verticalScroll(rememberScrollState()).background(MaterialTheme.colorScheme.background)) {
         FredTitle(article.articleType)
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(4.dp))
         FredTitle(article.title)
         if(article.date.isNotBlank()) FredText(article.date, modifier = Modifier.fillMaxWidth().padding(end = 8.dp).align(Alignment.End))
         Spacer(Modifier.height(4.dp))
-        if(article.content.isNotEmpty()) ImageSlider(article = article, Modifier.fillMaxHeight(0.5f).fillMaxWidth())
-        Spacer(Modifier.height(8.dp))
-        FredText(article.description, modifier = Modifier.fillMaxHeight(0.8f).verticalScroll(rememberScrollState()))
+        if(article.content.isNotEmpty()) ImageSlider(article = article, Modifier.fillMaxWidth().aspectRatio(1.5f))
+        Spacer(Modifier.height(4.dp))
+        FredText(article.description)
         Box(Modifier.fillMaxWidth().wrapContentHeight()) {
             FredIconButton(
                 onClick = { isShowDialog(false) }, icon = Icons.Default.Close,
