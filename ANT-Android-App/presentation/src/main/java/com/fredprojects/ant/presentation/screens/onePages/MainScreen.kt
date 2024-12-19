@@ -20,12 +20,12 @@ fun MainScreen(
         state.list.fastForEach {
             if(it.articleType != ANTStrings.MAIN) return@fastForEach
             FredText(it.date, modifier = Modifier.fillMaxWidth())
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(4.dp))
             FredTitle(it.title)
             Spacer(Modifier.height(4.dp))
-            ImageSlider(article = it, Modifier.fillMaxWidth())
-            Spacer(Modifier.height(8.dp))
             FredText(it.description)
+            Spacer(Modifier.height(4.dp))
+            ImageSlider(article = it, Modifier.fillMaxWidth().aspectRatio(0.685f))
         }
     }
 }

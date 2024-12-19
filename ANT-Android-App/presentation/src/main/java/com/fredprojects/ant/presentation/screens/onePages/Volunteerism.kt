@@ -25,7 +25,7 @@ fun Volunteerism(
             Spacer(Modifier.height(4.dp))
             FredText(it.description)
             Spacer(Modifier.height(8.dp))
-            ImageSlider(it, Modifier.fillMaxWidth())
+            ImageSlider(it, Modifier.fillMaxWidth().aspectRatio(1.0f))
         }
     }
 }

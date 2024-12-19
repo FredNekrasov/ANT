@@ -16,16 +16,16 @@ fun Priesthood(
     state: MainArticleState,
     modifier: Modifier = Modifier
 ) {
-    Column(modifier.padding(8.dp)) {
+    Column(modifier.verticalScroll(rememberScrollState()).padding(8.dp)) {
         state.list.fastForEach {
             if(it.articleType != ANTStrings.PRIESTHOOD) return@fastForEach
             FredTitle(it.articleType)
             Spacer(Modifier.height(4.dp))
+            ImageSlider(it, Modifier.fillMaxWidth().aspectRatio(0.58f))
+            Spacer(Modifier.height(4.dp))
             FredTitle(it.title)
             Spacer(Modifier.height(4.dp))
-            FredText(it.description, Modifier.fillMaxHeight(0.6f).verticalScroll(rememberScrollState()))
-            Spacer(Modifier.height(4.dp))
-            ImageSlider(it, Modifier.fillMaxWidth())
+            FredText(it.description)
         }
     }
 }
