@@ -26,7 +26,7 @@ internal fun ImageSlider(
     modifier: Modifier = Modifier
 ) {
     var isDialogVisible by rememberSaveable { mutableStateOf(false) }
-    var url by remember { mutableStateOf("") }
+    var url by rememberSaveable { mutableStateOf("") }
     LazyRow(modifier, horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.CenterVertically) {
         items(article.content, key = { it }) { photo ->
             AsyncImage(

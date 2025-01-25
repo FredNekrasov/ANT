@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -23,9 +24,9 @@ internal fun ContentList(
     getArticles: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var isShowDialog by remember { mutableStateOf(false) }
-    var articleIndex by remember { mutableIntStateOf(0) }
-    var page by remember { mutableIntStateOf(1) }
+    var isShowDialog by rememberSaveable { mutableStateOf(false) }
+    var articleIndex by rememberSaveable { mutableIntStateOf(0) }
+    var page by rememberSaveable { mutableIntStateOf(1) }
     LazyColumn(modifier.padding(8.dp)) {
         itemsIndexed(state.map[page] ?: emptyList(), key = { _, it -> it.id }) { index, it ->
             FredCard(
