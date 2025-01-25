@@ -3,7 +3,6 @@ package com.fredprojects.ant.data.mappers
 import com.fredprojects.ant.data.local.ArticleEntity
 import com.fredprojects.ant.data.remote.dto.ArticleDto
 import com.fredprojects.ant.domain.models.Article
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 /**
