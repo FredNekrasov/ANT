@@ -1,20 +1,20 @@
 [versions]
 # plugins
-agp = "8.7.3"
+agp = "8.8.0"
 kotlin = "2.1.0"
 # libraries
-koin = "4.0.0"
+koin = "4.0.2"
 ## data
 sqlDelight = "2.0.2"
-ktor = "3.0.1"
-kotlinxSerialization = "1.7.3"
+ktor = "3.0.3"
+kotlinxSerialization = "1.8.0"
 ## domain
-coroutines = "1.9.0"
+coroutines = "1.10.1"
 ## presentation
 coreKtx = "1.15.0"
 lifecycleKtx = "2.8.7"
-activityCompose = "1.9.3"
-composeBom = "2024.12.01"
+activityCompose = "1.10.0"
+composeBom = "2025.01.00"
 coil = "2.7.0"
 ## navigation
 #decompose = "3.2.0-beta02"
@@ -45,8 +45,6 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 # navigation
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
-#decompose = { group = "com.arkivanov.decompose", name = "decompose", version.ref = "decompose" }
-#decompose-extensions = { group = "com.arkivanov.decompose", name = "extensions-compose", version.ref = "decompose" }
 # network & serialization
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -63,15 +61,11 @@ kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-cor
 coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 # tests
 junit = { group = "junit", name = "junit", version.ref = "junit" }
-koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
-kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 [bundles]
 koin = ["koin-androidx-compose", "koin-android", "koin-core"]
-#navigation = ["decompose", "decompose-extensions"]
-navigation = ["androidx-navigation-compose"]
 # presentation
 app = ["androidx-core-ktx", "androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3"]
 presentation = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-ktx", "androidx-ui", "androidx-ui-graphics", "androidx-material3", "coil-compose"]
@@ -79,7 +73,6 @@ presentation = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx
 network = ["ktor-client-core", "ktor-client-okHttp", "ktor-client-logging", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json", "kotlinx-serialization-json"]
 database = ["sqldelight-android-driver", "sqldelight-runtime"]
 # test
-test = ["junit", "koin-test", "kotlinx-coroutines-test"]
 android-test = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4"]
 
 [plugins]
