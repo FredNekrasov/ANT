@@ -6,10 +6,15 @@ import dagger.Module;
 import dagger.Provides;
 
 import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
 import java.time.Duration;
 
 @Module
 public class NetworkProvider {
+    @Provides
+    public HttpRequest.Builder provideHttpRequestBuilder() {
+        return HttpRequest.newBuilder();
+    }
     @Provides
     public HttpClient provideHttpClient() {
         return HttpClient.newBuilder()

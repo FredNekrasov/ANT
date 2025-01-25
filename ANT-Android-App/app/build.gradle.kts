@@ -55,11 +55,11 @@ dependencies {
     implementation(project(":presentation"))
 
     implementation(libs.bundles.koin)
-    implementation(libs.bundles.navigation)
+    implementation(libs.androidx.navigation.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.app)
     // test
-    testImplementation(libs.bundles.test)
+    testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
     debugImplementation(libs.androidx.ui.tooling)

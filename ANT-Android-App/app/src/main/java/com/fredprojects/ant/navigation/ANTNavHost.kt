@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,7 +54,7 @@ fun ANTNavHost(
         composable(navItems[10]) { Volunteerism(mainArticleState, modifier) }
         composable(navItems[11]) { Stories(storiesState, storiesVM::getStoryArticles, modifier) }
     }
-    var isLoading by remember { mutableStateOf(false) }
+    var isLoading by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(mainArticleState.status) {
         mainVM.articlesSF.collectLatest { state ->
             if(state.status.isError()) context.displayMessage(state.status.getMessage())
@@ -64,5 +65,7 @@ fun ANTNavHost(
 }
 @Composable
 private fun ANTProgressIndicator(modifier: Modifier) {
-    Box(modifier.background(MaterialTheme.colorScheme.background)) { CircularProgressIndicator(Modifier.align(Alignment.Center)) }
+    Box(modifier.background(MaterialTheme.colorScheme.background)) {
+        CircularProgressIndicator(Modifier.align(Alignment.Center))
+    }
 }

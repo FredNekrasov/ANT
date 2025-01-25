@@ -75,7 +75,12 @@ class ArticleRepository(
             articleDao.deleteArticle(it.id)
             articleDao.upsertArticle(it.toEntity(catalogId, response.pageNumber))
         }
-        val articleStatus = articleStatusDao.getArticleStatusBy(catalogId, response.pageNumber) ?: ArticleStatusEntity(articleStatusDao.getCountAllArticleStatus(), catalogId.toLong(), response.pageNumber.toLong(), LocalDate.now().toString())
+        val articleStatus = articleStatusDao.getArticleStatusBy(catalogId, response.pageNumber) ?: ArticleStatusEntity(
+            id = articleStatusDao.getCountAllArticleStatus(),
+            catalogId = catalogId.toLong(),
+            pageNumber = response.pageNumber.toLong(),
+            currentDate = LocalDate.now().toString()
+        )
         articleStatusDao.upsertArticleStatus(articleStatus.copy(currentDate = LocalDate.now().toString()))
     }
     /**
