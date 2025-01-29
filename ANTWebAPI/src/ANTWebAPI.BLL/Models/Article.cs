@@ -25,6 +25,6 @@ public class Article
     public string Description { get; set; } = string.Empty;
     public string DateOrBanner { get; set; } = string.Empty;
     [ForeignKey(nameof(CatalogId))]
-    public virtual Catalog Catalog { get; set; } = null!;
-    public virtual ICollection<Content> Contents { get; set; } = null!;
+    public Catalog Catalog { get; init; } = null!;
+    public ICollection<Content> Contents { get; init; } = null!;
 }
