@@ -17,7 +17,7 @@ public class UpdateCatalogUT
         Assert.NotNull(catalog);
         catalog.Name = "Updated Catalog";
         Assert.True(await useCases.UpdateAsync(catalog.Id, catalog));
-        var updatedCatalog = await useCases.GetAsync(catalog.Id);
+        var updatedCatalog = await useCases.GetRecordAsync(catalog.Id);
         Assert.NotNull(updatedCatalog);
         Assert.Equal(catalog.Name, updatedCatalog.Name);
     }

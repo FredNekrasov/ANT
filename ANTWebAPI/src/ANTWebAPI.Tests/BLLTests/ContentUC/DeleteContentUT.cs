@@ -16,7 +16,7 @@ public class DeleteContentUT
         var content = await context.Contents.OrderBy(e => e.Id).LastOrDefaultAsync();
         Assert.NotNull(content);
         Assert.True(await useCases.DeleteAsync(content.Id));
-        var deletedContent = await useCases.GetAsync(content.Id);
+        var deletedContent = await useCases.GetRecordAsync(content.Id);
         Assert.Null(deletedContent);
     }
     [Fact]
