@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ANTWebAPI.DAL.Database.Configurations;
 
-/*
- * CatalogConfiguration is a configuration class for the Catalog entity that configures the catalog table in the database.
- */
 internal class CatalogConfiguration : IEntityTypeConfiguration<Catalog>
 {
     public void Configure(EntityTypeBuilder<Catalog> entity)

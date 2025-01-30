@@ -3,24 +3,26 @@ using ANTWebAPI.DAL.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace ANTWebAPI.DAL.Migrations
 {
     [DbContext(typeof(ANTDbContext))]
-    [Migration("20241017045413_ANTDb")]
-    partial class ANTDb
+    [Migration("20250129191928_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("ANTWebAPI.BLL.Models.Article", b =>
                 {
@@ -28,7 +30,7 @@ namespace ANTWebAPI.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long>("CatalogId")
                         .HasColumnType("bigint")
@@ -36,16 +38,16 @@ namespace ANTWebAPI.DAL.Migrations
 
                     b.Property<string>("DateOrBanner")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("text")
                         .HasColumnName("date_or_banner");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -60,11 +62,11 @@ namespace ANTWebAPI.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -77,7 +79,7 @@ namespace ANTWebAPI.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<long>("ArticleId")
                         .HasColumnType("bigint")
@@ -85,7 +87,7 @@ namespace ANTWebAPI.DAL.Migrations
 
                     b.Property<string>("Data")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -116,9 +118,15 @@ namespace ANTWebAPI.DAL.Migrations
                     b.Navigation("Article");
                 });
 
-            modelBuilder.Entity("ANTWebAPI.BLL.Models.Article", b => { b.Navigation("Contents"); });
+            modelBuilder.Entity("ANTWebAPI.BLL.Models.Article", b =>
+                {
+                    b.Navigation("Contents");
+                });
 
-            modelBuilder.Entity("ANTWebAPI.BLL.Models.Catalog", b => { b.Navigation("Articles"); });
+            modelBuilder.Entity("ANTWebAPI.BLL.Models.Catalog", b =>
+                {
+                    b.Navigation("Articles");
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -17,5 +17,5 @@ public class Content
     public long ArticleId { get; set; }
     public string Data { get; set; } = string.Empty;//it can be contacts or images
     [ForeignKey(nameof(ArticleId))]
-    public virtual Article Article { get; set; } = null!;
+    public Article Article { get; init; } = null!;
 }

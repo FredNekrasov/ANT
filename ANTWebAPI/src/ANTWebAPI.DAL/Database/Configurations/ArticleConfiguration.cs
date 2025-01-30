@@ -4,9 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ANTWebAPI.DAL.Database.Configurations;
 
-/*
- * ArticleConfiguration is used to configure the Article entity in the database.
- */
 internal class ArticleConfiguration : IEntityTypeConfiguration<Article>
 {
     public void Configure(EntityTypeBuilder<Article> entity)
