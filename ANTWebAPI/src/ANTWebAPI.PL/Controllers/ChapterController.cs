@@ -5,47 +5,41 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ANTWebAPI.PL.Controllers;
 
-/*
- * ChapterController is used for getting list of chapters
- */
 [Route("api/v1/[controller]")]
 [ApiController]
-public class ChapterController(IChapterRepository repository) : ControllerBase
+public class ChapterController(IChapterRepository chapterRepository) : ControllerBase
 {
-    private readonly IChapterRepository _repository = repository;
-    /*
-     * GetListAsync method returns all records from database
-     */
+    
     [HttpGet]
     public async Task<ActionResult<ICollection<ChapterDTO>>> GetListAsync()
     {
-        var models = await _repository.GetListAsync();
+        var models = await chapterRepository.GetListAsync();
+        if (models is []) return NoContent();
         List<ChapterDTO> dtoList = [];
-        for (int i = 0; i < models.Count; i++)
-        {
-            dtoList.Add(models[i].ToDto());
-        }
+        dtoList.AddRange(models.Select(t => t.ToDto()));
         return Ok(dtoList);
     }
+    
     /*
      * GetPagedListAsync method returns page of records from database
      * 
-     * @catalogId - id of catalog that should be used for filtering
-     * @pageNumber - number of page that should be returned
-     * @pageSize - size of page that should be returned
+     * @catalogId - id of catalog that should be used for filtering. [default value = 1]
+     * @pageNumber - number of page that should be returned. [default value = 1]
+     * @pageSize - size of page that should be returned. [default value = 50]
+     *
+     * if there are no records in database, then NoContent/204 status code is returned
+     * otherwise, Ok/200 status code and PagedResponse<ChapterDTO> is returned
      * 
      * @returns PagedResponse<ChapterDTO>
      */
-    [HttpGet("{catalogId}")]
+    [HttpGet("{catalogId:int}")]
     public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 50)
     {
-        var models = await _repository.GetPagedListByCatalogAsync(catalogId, pageNumber, pageSize);
+        var models = await chapterRepository.GetPagedListByCatalogAsync(catalogId, pageNumber, pageSize);
+        if (models is []) return NoContent();
         List<ChapterDTO> dtoList = [];
-        for (int i = 0; i < models.Count; i++)
-        {
-            dtoList.Add(models[i].ToDto());
-        }
-        var totalRecords = await _repository.GetTotalCountAsync();
+        dtoList.AddRange(models.Select(t => t.ToDto()));
+        var totalRecords = await chapterRepository.GetTotalCountAsync();
         var response = new PagedResponse<ChapterDTO>(pageNumber, dtoList.Count, totalRecords, dtoList);
         return Ok(response);
     }
