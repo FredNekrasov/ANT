@@ -13,7 +13,7 @@ public interface IChapterRepository
      * pageSize - size of page/number of chapters
      * return list of chapters by catalog id with pagination parameters
      */
-    Task<List<Chapter>> GetPagedListByCatalogAsync(int catalogId, int pageNumber, int pageSize);
+    Task<List<Chapter>> GetPagedListByCatalogAsync(long catalogId, int pageNumber, int pageSize);
     
     /**
      * GetTotalCountAsync - get total count of chapters from database

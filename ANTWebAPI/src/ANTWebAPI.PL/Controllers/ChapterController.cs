@@ -32,8 +32,8 @@ public class ChapterController(IChapterRepository chapterRepository) : Controlle
      * 
      * @returns PagedResponse<ChapterDTO>
      */
-    [HttpGet("{catalogId:int}")]
-    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(int catalogId = 1, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 50)
+    [HttpGet("{catalogId:long}")]
+    public async Task<ActionResult<PagedResponse<ChapterDTO>>> GetPagedListAsync(long catalogId = 1, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 50)
     {
         var models = await chapterRepository.GetPagedListByCatalogAsync(catalogId, pageNumber, pageSize);
         if (models is []) return NoContent();
