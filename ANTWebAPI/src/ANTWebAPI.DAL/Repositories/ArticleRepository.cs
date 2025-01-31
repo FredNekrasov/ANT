@@ -16,8 +16,12 @@ public class ArticleRepository(ANTDbContext antDbContext) : IRepository<Article>
         await antDbContext.SaveChangesAsync();
         return true;
     }
-    public async Task<List<Article>> GetListAsync() => await antDbContext.Articles.AsNoTracking().Include(e => e.Catalog).ToListAsync();
-    public async Task<Article?> GetModelAsync(long id) => await antDbContext.Articles.AsNoTracking().Include(e => e.Catalog).FirstOrDefaultAsync(e => e.Id == id);
+    public async Task<List<Article>> GetListAsync() => await antDbContext.Articles.AsNoTracking()
+        .Include(e => e.Catalog)
+        .ToListAsync();
+    public async Task<Article?> GetModelAsync(long id) => await antDbContext.Articles.AsNoTracking()
+        .Include(e => e.Catalog)
+        .FirstOrDefaultAsync(e => e.Id == id);
     public async Task InsertAsync(Article model)
     {
         await antDbContext.Articles.AddAsync(model);
