@@ -18,7 +18,7 @@ public class ContentRepository(ANTDbContext antDbContext) : IRepository<Content>
     
     public async Task<List<Content>> GetListAsync() => await antDbContext.Contents.AsNoTracking().ToListAsync();
     
-    public async Task<Content?> GetModelAsync(long id) => await antDbContext.Contents.FirstOrDefaultAsync(e => e.Id == id);
+    public async Task<Content?> GetModelAsync(long id) => await antDbContext.Contents.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
     
     public async Task InsertAsync(Content model)
     {

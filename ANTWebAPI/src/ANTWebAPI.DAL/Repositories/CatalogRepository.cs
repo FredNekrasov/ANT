@@ -17,7 +17,7 @@ public class CatalogRepository(ANTDbContext antDbContext) : IRepository<Catalog>
         return true;
     }
     public async Task<List<Catalog>> GetListAsync() => await antDbContext.Catalogs.AsNoTracking().ToListAsync();
-    public async Task<Catalog?> GetModelAsync(long id) => await antDbContext.Catalogs.FirstOrDefaultAsync(e => e.Id == id);
+    public async Task<Catalog?> GetModelAsync(long id) => await antDbContext.Catalogs.AsNoTracking().FirstOrDefaultAsync(e => e.Id == id);
     public async Task InsertAsync(Catalog model)
     {
         await antDbContext.Catalogs.AddAsync(model);
