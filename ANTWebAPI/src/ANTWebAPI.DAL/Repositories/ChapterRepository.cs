@@ -10,9 +10,11 @@ public class ChapterRepository(ANTDbContext antDbContext) : IChapterRepository
     
     public async Task<List<Chapter>> GetListAsync()
     {
-        var articles = await antDbContext.Articles.AsNoTracking().ToListAsync();
-        var contentQueryable = antDbContext.Contents.AsQueryable();
-        return GetChaptersAsync(articles, contentQueryable);
+        var articles = await antDbContext.Articles.AsNoTracking()
+            .Include(e => e.Catalog)
+            .ToListAsync();
+        var contentList = await antDbContext.Contents.AsNoTracking().ToListAsync();
+        return GetChaptersAsync(articles, contentList);
     }
     
     /*
@@ -27,26 +29,34 @@ public class ChapterRepository(ANTDbContext antDbContext) : IChapterRepository
     public async Task<List<Chapter>> GetPagedListByCatalogAsync(long catalogId, int pageNumber, int pageSize)
     {
         if (!await antDbContext.Catalogs.AnyAsync(e => e.Id == catalogId)) return [];
-        var contentQueryable = antDbContext.Contents.AsQueryable();
+        var contentList = await antDbContext.Contents.AsNoTracking().ToListAsync();
         if (catalogId == 1)
         {
-            var mainArticles = await antDbContext.Articles.AsNoTracking().Where(e => e.CatalogId != 2 && e.CatalogId != 5 && e.CatalogId != 7 && e.CatalogId != 8 && e.CatalogId != 13).ToListAsync();
-            return GetChaptersAsync(mainArticles, contentQueryable);
+            var mainArticles = await antDbContext.Articles.AsNoTracking()
+                .Where(e => e.CatalogId != 2 && e.CatalogId != 5 && e.CatalogId != 7 && e.CatalogId != 8 && e.CatalogId != 13)
+                .Include(e => e.Catalog)
+                .ToListAsync();
+            return GetChaptersAsync(mainArticles, contentList);
         }
-        var articles = await antDbContext.Articles.AsNoTracking().Include(e => e.Catalog).Where(e => e.CatalogId == catalogId).ToListAsync();
-        var chapterList = GetChaptersAsync(articles, contentQueryable);
+        var articles = await antDbContext.Articles.AsNoTracking()
+            .Where(e => e.CatalogId == catalogId)
+            .Include(e => e.Catalog)
+            .ToListAsync();
+        var chapterList = GetChaptersAsync(articles, contentList);
         int startIndex = (pageNumber - 1) * pageSize, endIndex = startIndex + pageSize;
         return articles.Count < pageSize ? chapterList : chapterList.Take(startIndex..endIndex).ToList();
     }
     
     public async Task<int> GetTotalCountAsync() => await antDbContext.Articles.CountAsync();
     
-    private static List<Chapter> GetChaptersAsync(List<Article> articles, IQueryable<Content> contentQueryable)
+    List<Chapter> GetChaptersAsync(List<Article> articles, List<Content> contentList)
     {
         List<Chapter> chapterList = [];
         chapterList.AddRange(
             from article in articles
-            let content = contentQueryable.Where(content => content.ArticleId == article.Id).Select(content => content.Data).ToList()
+            let content = contentList.Where(content => content.ArticleId == article.Id)
+                .Select(content => content.Data)
+                .ToList()
             select new Chapter
             {
                 Id = article.Id,
