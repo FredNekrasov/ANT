@@ -15,7 +15,7 @@ public class GetCatalogUT
         var useCases = new CatalogUseCases(repository);
         var anyCatalog = await context.Catalogs.FirstOrDefaultAsync();
         Assert.NotNull(anyCatalog);
-        var foundCatalog = await useCases.GetAsync(anyCatalog.Id);
+        var foundCatalog = await useCases.GetRecordAsync(anyCatalog.Id);
         Assert.NotNull(foundCatalog);
         Assert.Equal(anyCatalog.Name, foundCatalog.Name);
     }
@@ -25,7 +25,7 @@ public class GetCatalogUT
         using ANTDbContext context = new();
         var repository = new CatalogRepository(context);
         var useCases = new CatalogUseCases(repository);
-        var foundCatalog = await useCases.GetAsync(4378L);
+        var foundCatalog = await useCases.GetRecordAsync(4378L);
         Assert.Null(foundCatalog);
     }
     [Fact]

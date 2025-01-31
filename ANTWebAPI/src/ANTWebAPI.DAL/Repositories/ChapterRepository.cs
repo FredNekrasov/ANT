@@ -5,23 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ANTWebAPI.DAL.Repositories;
 
-/*
- * ChapterRepository is used for getting Chapter List
- */
-public class ChapterRepository(ANTDbContext context) : IChapterRepository
+public class ChapterRepository(ANTDbContext antDbContext) : IChapterRepository
 {
-    private readonly ANTDbContext _context = context;
-    /*
-     * GetListAsync method is used for getting Chapter List
-     * 
-     * @return List<Chapter> - Chapter List
-     */
+    
     public async Task<List<Chapter>> GetListAsync()
     {
-        var articles = await _context.Articles.ToListAsync();
-        var chapterList = await GetChapterListAsync(articles);
-        return chapterList;
+        var articles = await antDbContext.Articles.AsNoTracking().ToListAsync();
+        var contentQueryable = antDbContext.Contents.AsQueryable();
+        return GetChaptersAsync(articles, contentQueryable);
     }
+    
     /*
      * GetPagedListByCatalogAsync method is used for getting Chapter List by Catalog id with pagination
      * 
@@ -31,52 +24,39 @@ public class ChapterRepository(ANTDbContext context) : IChapterRepository
      * 
      * @return List<Chapter> - Chapter List
      */
-    public async Task<List<Chapter>> GetPagedListByCatalogAsync(int catalogId, int pageNumber, int pageSize)
+    public async Task<List<Chapter>> GetPagedListByCatalogAsync(long catalogId, int pageNumber, int pageSize)
     {
-        if (!await _context.Catalogs.AnyAsync(e => e.Id == catalogId)) return [];
+        if (!await antDbContext.Catalogs.AnyAsync(e => e.Id == catalogId)) return [];
+        var contentQueryable = antDbContext.Contents.AsQueryable();
         if (catalogId == 1)
         {
-            var mainArticles = await _context.Articles.Where(e => e.CatalogId != 2 && e.CatalogId != 5 && e.CatalogId != 7 && e.CatalogId != 8 && e.CatalogId != 13).ToListAsync();
-            var mainChapterList = await GetChapterListAsync(mainArticles);
-            return mainChapterList;
+            var mainArticles = await antDbContext.Articles.AsNoTracking().Where(e => e.CatalogId != 2 && e.CatalogId != 5 && e.CatalogId != 7 && e.CatalogId != 8 && e.CatalogId != 13).ToListAsync();
+            return GetChaptersAsync(mainArticles, contentQueryable);
         }
-        var articles = await _context.Articles.Where(e => e.CatalogId == catalogId).ToListAsync();
-        var chapterList = await GetChapterListAsync(articles);
-        return articles.Count < pageSize ? chapterList : chapterList.Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .ToList();
+        var articles = await antDbContext.Articles.AsNoTracking().Include(e => e.Catalog).Where(e => e.CatalogId == catalogId).ToListAsync();
+        var chapterList = GetChaptersAsync(articles, contentQueryable);
+        int startIndex = (pageNumber - 1) * pageSize, endIndex = startIndex + pageSize;
+        return articles.Count < pageSize ? chapterList : chapterList.Take(startIndex..endIndex).ToList();
     }
-    /*
-     * GetTotalCountAsync method is used for getting total number of chapters
-     * 
-     * @return int - Total number of chapters
-     */
-    public async Task<int> GetTotalCountAsync() => await _context.Articles.CountAsync();
-    /*
-     * GetChapterListAsync method is used for getting Chapter List
-     * 
-     * @param articles - List of Article
-     * 
-     * @return List<Chapter> - Chapter List
-     */
-    private async Task<List<Chapter>> GetChapterListAsync(List<Article> articles)
+    
+    public async Task<int> GetTotalCountAsync() => await antDbContext.Articles.CountAsync();
+    
+    private static List<Chapter> GetChaptersAsync(List<Article> articles, IQueryable<Content> contentQueryable)
     {
-        var chapterList = new List<Chapter>();
-        foreach (var article in articles)
-        {
-            var content = await _context.Contents.Where(content => content.ArticleId == article.Id).Select(content => content.Data).ToListAsync();
-            var catalog = await _context.Catalogs.FirstOrDefaultAsync(e => e.Id == article.CatalogId);
-            var chapter = new Chapter
+        List<Chapter> chapterList = [];
+        chapterList.AddRange(
+            from article in articles
+            let content = contentQueryable.Where(content => content.ArticleId == article.Id).Select(content => content.Data).ToList()
+            select new Chapter
             {
                 Id = article.Id,
-                Catalog = catalog ?? article.Catalog,
+                Catalog = article.Catalog,
                 Title = article.Title,
                 Description = article.Description,
                 DateOrBanner = article.DateOrBanner,
                 Content = content
-            };
-            chapterList.Add(chapter);
-        }
+            }
+        );
         return chapterList;
     }
 }

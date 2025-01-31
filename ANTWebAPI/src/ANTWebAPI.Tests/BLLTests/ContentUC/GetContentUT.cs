@@ -15,7 +15,7 @@ public class GetContentUT
         var useCases = new ContentUseCases(repository);
         var anyContent = await context.Contents.FirstOrDefaultAsync();
         Assert.NotNull(anyContent);
-        var foundContent = await useCases.GetAsync(anyContent.Id);
+        var foundContent = await useCases.GetRecordAsync(anyContent.Id);
         Assert.NotNull(foundContent);
         Assert.Equal(anyContent.Data, foundContent.Data);
     }
@@ -25,7 +25,7 @@ public class GetContentUT
         using ANTDbContext context = new();
         var repository = new ContentRepository(context);
         var useCases = new ContentUseCases(repository);
-        var foundContent = await useCases.GetAsync(4378L);
+        var foundContent = await useCases.GetRecordAsync(4378L);
         Assert.Null(foundContent);
     }
     [Fact]

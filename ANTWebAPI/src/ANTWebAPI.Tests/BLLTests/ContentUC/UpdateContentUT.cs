@@ -17,7 +17,7 @@ public class UpdateContentUT
         Assert.NotNull(content);
         content.Data = "Updated Content(BLL)";
         Assert.True(await useCases.UpdateAsync(content.Id, content));
-        var updatedContent = await useCases.GetAsync(content.Id);
+        var updatedContent = await useCases.GetRecordAsync(content.Id);
         Assert.NotNull(updatedContent);
         Assert.Equal(content.Data, updatedContent.Data);
     }

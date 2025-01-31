@@ -16,7 +16,7 @@ public class DeleteArticleUT
         var article = await context.Articles.OrderBy(e => e.Id).LastOrDefaultAsync();// last article in the table isn't used as a foreign key in the article table
         Assert.NotNull(article);
         Assert.True(await useCases.DeleteAsync(article.Id));
-        var deletedArticle = await useCases.GetAsync(article.Id);
+        var deletedArticle = await useCases.GetRecordAsync(article.Id);
         Assert.Null(deletedArticle);
     }
     [Fact]
@@ -36,7 +36,7 @@ public class DeleteArticleUT
         var article = await context.Articles.FirstOrDefaultAsync();// first article in the table is used as a foreign key in the article table
         Assert.NotNull(article);
         Assert.False(await useCases.DeleteAsync(article.Id));
-        var deletedArticle = await useCases.GetAsync(article.Id);
+        var deletedArticle = await useCases.GetRecordAsync(article.Id);
         Assert.NotNull(deletedArticle);
     }
 }

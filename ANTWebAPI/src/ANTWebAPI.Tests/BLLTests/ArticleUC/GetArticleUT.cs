@@ -15,7 +15,7 @@ public class GetArticleUT
         var useCases = new ArticleUseCases(repository);
         var anyArticle = await context.Articles.FirstOrDefaultAsync();
         Assert.NotNull(anyArticle);
-        var foundArticle = await useCases.GetAsync(anyArticle.Id);
+        var foundArticle = await useCases.GetRecordAsync(anyArticle.Id);
         Assert.NotNull(foundArticle);
         Assert.Equal(anyArticle.Title, foundArticle.Title);
     }
@@ -25,7 +25,7 @@ public class GetArticleUT
         using ANTDbContext context = new();
         var repository = new ArticleRepository(context);
         var useCases = new ArticleUseCases(repository);
-        var foundArticle = await useCases.GetAsync(4378L);
+        var foundArticle = await useCases.GetRecordAsync(4378L);
         Assert.Null(foundArticle);
     }
     [Fact]
